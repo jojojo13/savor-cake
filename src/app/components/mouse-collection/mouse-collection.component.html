@@ -1,0 +1,42 @@
+<div class="cold-collection py-8 px-32">
+  <div class="cold-collection-content flex items-center">
+    <div class="left w-1/2">
+      <div class="imgBox">
+        <img src="../../../assets/images/mousse-collection-cakes (1).png" alt="">
+      </div>
+    </div>
+    <div class="right w-1/2 text-right">
+      <h2>Bộ sưu tập bánh lạnh <br>Mousse</h2>
+      <p>Savor ra mắt bộ sưu tập bánh mousse ngọt mềm, thơm lừng vị hoa quả/cà phê. Bánh sử dụng nguyên liệu xịn xò,
+        100% kem tươi whipping nhập khẩu và hoa quả tươi, phù hợp với những người sành ăn nhất</p>
+    </div>
+  </div>
+  <div class="cake-collection">
+    <h3>Danh mục bánh</h3>
+    <owl-carousel-o [options]="customOptions" class="cake-list flex">
+      <ng-container *ngFor="let cake of cakeList">
+        <ng-template carouselSlide [id]="cake.id">
+          <div class="cake flex flex-col justify-between">
+            <div class="cake-heading">
+              <div class="imgBox">
+                <img [src]="cake.url" [alt]="cake.name">
+              </div>
+              <div class="px-2">
+                <span class="cake-name">{{ cake.name }}</span>
+                <span class="cake-detail">{{ cake.description }}</span>
+              </div>
+            </div>
+            <div class="cake-sale px-2">
+              <div>
+                <span class="cake-detail">Giá: <span class="line-through sale">{{ cake.originalPrice }}</span> <span
+                    class="font-bold ml-2">{{ cake.salePrice }}</span></span>
+              </div>
+              <div>
+                <span class="cake-detail">{{ cake.code }}</span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
