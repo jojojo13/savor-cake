@@ -8,11 +8,21 @@ import { MouseCollectionComponent } from './components/mouse-collection/mouse-co
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CakeCollectionComponent } from './components/cake-collection/cake-collection.component';
+import { BannerComponent } from './components/banner/banner.component';
+import { CakeCollectionItemComponent } from './components/cake-collection-item/cake-collection-item.component';
+import { CartContainerComponent } from './components/cart-container/cart-container.component';
+import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     WhyChooseUsComponent,
-    MouseCollectionComponent
+    MouseCollectionComponent,
+    CakeCollectionComponent,
+    BannerComponent,
+    CakeCollectionItemComponent,
+    CartContainerComponent,
+    WelcomePageComponent
   ],
   imports: [
     BrowserModule,

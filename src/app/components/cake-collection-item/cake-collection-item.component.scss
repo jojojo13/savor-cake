@@ -1,0 +1,28 @@
+.cake-custom{
+    border: none !important;
+    background-color: #FFF8DD;
+}
+.collection-name{
+    font-size: 36px;
+    color: rgb(97, 160, 92);
+    font-weight: 700;
+    line-height: 160%;
+    position: relative;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: Lexend, sans-serif !important;
+    padding-left: 20px;
+}
+.collection-name::before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 6px;
+    background-color: rgb(97, 160, 92);
+    display: block;
+    border-radius: 5px;
+}

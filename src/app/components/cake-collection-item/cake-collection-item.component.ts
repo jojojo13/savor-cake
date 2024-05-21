@@ -1,23 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { throwError } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
-  selector: 'app-mouse-collection',
-  templateUrl: './mouse-collection.component.html',
-  styleUrls: ['./mouse-collection.component.scss']
+  selector: 'app-cake-collection-item',
+  templateUrl: './cake-collection-item.component.html',
+  styleUrls: ['./cake-collection-item.component.scss']
 })
-export class MouseCollectionComponent implements OnInit {
-
+export class CakeCollectionItemComponent implements OnInit {
+  @Input() collectionName = 'Danh muc banh';
   customOptions: OwlOptions = {
     items: 4,
     dots: true,
     // nav:true,
     autoWidth: false,
- 
+
   }
-  
+
   cakeList: any[] = [
     {
       id: 1,
@@ -81,16 +80,14 @@ export class MouseCollectionComponent implements OnInit {
       originalPrice: '250,000 VNĐ',
       salePrice: '200,000 VNĐ',
       code: 'V1001'
-    },
-    // Add more cakes as needed
-  ];
-  constructor(
-    private readonly http: HttpClient,
-  ) {}
+    }
+  ]
+  constructor(private cartService: CartService) { }
 
-  ngOnInit() {
-  
+  ngOnInit(): void {
   }
-
+  addToCart(cake: any) {
+    this.cartService.addCakeToCart(cake);
+  }
 
 }

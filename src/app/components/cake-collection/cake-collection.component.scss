@@ -1,0 +1,42 @@
+.cake-collection-wrap {
+    background-color: #FEFBF0;
+
+    h1 {
+        position: sticky;
+        font-weight: 700;
+        color: rgb(97, 160, 92);
+        text-align: center;
+        font-size: 48px;
+        line-height: 125%;
+        font-family: Lexend, sans-serif !important;
+        z-index: 2;
+    }
+    .base-line{
+        width: 126px;
+        height: 6px;
+        background: rgb(97, 160, 92);
+        border-radius: 5px;
+        margin: 30px auto 0px;
+    }
+    p{
+        font-size: 20px;
+        line-height: 160%;
+        margin: 15px auto;
+        width: 85%;
+        text-align: center;
+    }
+    .blueberry-top-left{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        z-index: 1;
+    }
+    .buble-top-right{
+        position: absolute;
+        top: 700px;
+        right: 0;
+        width: 300px;
+        z-index: 1;
+    }
+}

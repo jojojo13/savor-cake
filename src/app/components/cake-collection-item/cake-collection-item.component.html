@@ -1,0 +1,43 @@
+<div class="wrap py-8 px-32">
+    <div class="cake-collection">
+        <h3 class="collection-name">{{collectionName}}</h3>
+        <owl-carousel-o [options]="customOptions" class="cake-list flex">
+          <ng-container *ngFor="let cake of cakeList">
+            <ng-template carouselSlide [id]="cake.id">
+              <div class="cake flex flex-col justify-between cake-custom">
+                <div class="cake-heading">
+                  <div class="imgBox">
+                    <img [src]="cake.url" [alt]="cake.name">
+                  </div>
+                  <div class="px-2">
+                    <span class="cake-name">{{ cake.name }}</span>
+                    <span class="cake-detail">{{ cake.description }}</span>
+                  </div>
+                </div>
+                <div class="cake-sale px-2">
+                  <div>
+                    <span class="cake-detail">Giá: <span class="line-through sale">{{ cake.originalPrice }}</span> <span
+                        class="font-bold ml-2">{{ cake.salePrice }}</span></span>
+                  </div>
+                  <div>
+                    <span class="cake-detail">{{ cake.code }}</span>
+                  </div>
+                  <div>
+                    <span class="cake-detail">Kích thước</span>
+                  </div>
+                  <div class="cake-size">
+                    <div>14x6cm</div>
+                    <div>18x6cm</div>
+                    <div>24x6cm</div>
+                  </div>
+                  <div class="cake-action flex justify-center">
+                    <div class="buy-now">Đặt ngay</div>
+                    <div class="add-to-cart" (click)="addToCart(cake)"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>

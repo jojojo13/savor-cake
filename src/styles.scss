@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
-body{
-    font-family: "Lexend", sans-serif;
-    font-optical-sizing: auto;
-    overflow-x: hidden;
+
+body {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  overflow-x: hidden;
 }
 
 .owl-prev,
@@ -21,6 +22,95 @@ body{
 .owl-next {
   right: -2rem;
 }
+
 .owl-item {
-    width: 260px !important;
+  width: 260px !important;
+}
+
+.cake-list {
+  margin-top: 40px;
+  position: sticky;
+  z-index: 2;
+  .cake {
+    --tw-text-opacity: 1;
+    width: 250px;
+    border: 4px solid rgb(190, 231, 166) !important;
+    height: 590px;
+    cursor: pointer;
+  }
+
+  .cake-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(64, 64, 64);
+    font-family: Lexend, sans-serif !important;
+    font-weight: bold;
+    display: block;
+  }
+
+  .cake-detail {
+    font-family: Quicksand;
+    letter-spacing: -0.8px;
+    line-height: 150%;
+    font-size: 14px;
+    color: rgb(64, 64, 64);
+  }
+
+  .imgBox {
+    width: 100%;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .sale {
+    color: rgb(179, 179, 179);
+  }
+
+  .cake-size {
+    display: flex;
+    gap: 5px;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+
+    div {
+      min-width: 60px;
+      display: inline-flex !important;
+      -webkit-box-align: center !important;
+      align-items: center !important;
+      -webkit-box-pack: center !important;
+      justify-content: center !important;
+      padding: 3% 5% !important;
+      font-size: 0.7em !important;
+      margin-left: 0px !important;
+      color: rgb(97, 152, 92) !important;
+      border: 1.4px solid !important;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-right: 0.125rem;
+      border-radius: 0.25rem;
+    }
+  }
+  .cake-action{
+    gap:10px;
+    padding-bottom: 15px;
+    div{
+      margin-top: 20px;
+      color: #FFFF;
+      font-weight: bold;
+      background-color: rgb(97, 160, 92);
+      padding: 8px 25px;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .buy-now{
+      width: 80%;
+    }
+    // .add-to-cart{
+    //   width: 10%;
+    // }
+  }
 }
