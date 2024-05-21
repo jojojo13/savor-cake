@@ -1,0 +1,59 @@
+.footer {
+    background-color: #61985C;
+    color: white;
+
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        font-family: Lexend, sans-serif;
+    }
+
+    p {
+        font-size: 1.125rem;
+        font-weight: normal;
+    }
+
+    .imgBox {
+        width: 130px;
+        margin: 0 15px;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    svg {
+        margin: 0 15px;
+        margin-bottom: 20px;
+    }
+
+    .footer-news {
+        h3 {
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        .imgBox {
+            width: 115px;
+            margin: 0 10px;
+
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .footer-bottom {
+        p {
+            font-size: 1.125rem;
+            font-weight: 300;
+        }
+
+        margin-top: 20px;
+        border-top: 2px solid white;
+    }
+}

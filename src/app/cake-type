@@ -1,0 +1,7 @@
+export class CakeType {
+    static Mousse = 'mousse';
+    static Fruit = 'fruit';
+    static CupCake = 'cupcake';
+    static Whipping = 'whipping';
+    static EndCake = 'endcake';
+}

@@ -7,22 +7,26 @@ import { Injectable } from '@angular/core';
 export class CartService {
 
   constructor(private http: HttpClient) { }
-  addCakeToCart(cake:any){
-    localStorage.setItem(cake.id, JSON.stringify(cake));
+  addCakeToCart(cake: any) {
+    let list = JSON.parse(localStorage.getItem('orderItems') || '[]');
+    let existingCakeIndex = list.findIndex((item: any) => item.id === cake.id);
+
+    if (existingCakeIndex !== -1) {
+      list[existingCakeIndex].quantity += 1;
+    } else {
+      cake.quantity = 1;
+      list.push(cake);
+    }
+    // Update the localStorage with the updated list
+    localStorage.setItem('orderItems', JSON.stringify(list));
   }
 
   getAllCakesromLocalStorage() {
-    let cakes = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        if (key !== null) {
-            let itemString = localStorage.getItem(key);
-            if (itemString !== null) {
-                let item = JSON.parse(itemString);
-                cakes.push(item);
-            }
-        }
+    const storedList = localStorage.getItem('orderItems');
+    if (storedList) {
+      return JSON.parse(storedList);
+    } else {
+      return [];
     }
-    return cakes;
-}
+  }
 }

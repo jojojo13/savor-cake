@@ -1,0 +1,52 @@
+<div class="cake-collection-wrap relative py-10 px-32">
+    <h1>Trang quản trị bánh sinh nhật<br> <span>Savor Cake</span></h1>
+    <div class="base-line"></div>
+    <div class="cake-collection">
+       <div class="admin-action flex items-center">
+        <span class="custom-dropdown big">
+            <select>    
+                <option>Sherlock Holmes</option>
+                <option>The Great Gatsby</option>  
+                <option>V for Vendetta</option>
+                <option>The Wolf of Wallstreet</option>
+                <option>Quantum of Solace</option>
+            </select>
+        </span>
+        <button (click)="openDialog()">Thêm bánh mới</button>
+       </div>
+        <div class="cake-list flex flex-wrap cake-list-admin">
+            <div class="cake flex flex-col justify-between cake-custom cake-admin" *ngFor="let cake of cakeList">
+                <div class="cake-heading">
+                    <div class="imgBox">
+                        <img [src]="cake.url" [alt]="cake.name">
+                    </div>
+                    <div class="px-2">
+                        <span class="cake-name">{{ cake.name }}</span>
+                        <span class="cake-detail">{{ cake.description }}</span>
+                    </div>
+                </div>
+                <div class="cake-sale px-2">
+                    <div>
+                        <span class="cake-detail">Giá: <span class="line-through sale">{{ cake.originalPrice
+                                }}</span> <span class="font-bold ml-2">{{ cake.salePrice }}</span></span>
+                    </div>
+                    <div>
+                        <span class="cake-detail">{{ cake.code }}</span>
+                    </div>
+                    <div>
+                        <span class="cake-detail">Kích thước</span>
+                    </div>
+                    <div class="cake-size">
+                        <div>14x6cm</div>
+                        <div>18x6cm</div>
+                        <div>24x6cm</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <img class="blueberry-top-left" src="../../../assets/images/blueberry-top-left.png" alt="">
+    <img class="buble-top-right" src="../../../assets/images/bubble-top-right.png" alt="">
+</div>
