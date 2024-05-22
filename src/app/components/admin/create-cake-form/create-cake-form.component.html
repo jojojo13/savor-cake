@@ -5,7 +5,7 @@
             placeholder=" " required />
         <label
             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tên
-            bánh</label>
+            bánh <span class="error">*</span></label>
         <p class="error" *ngIf="cakeForm.get('cakeName').errors?.required && cakeForm.get('cakeName').dirty">Hãy nhập
             tên bánh</p>
     </div>
@@ -15,19 +15,17 @@
             placeholder=" " required />
         <label
             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mô
-            tả</label>
+            tả <span class="error">*</span></label>
         <p class="error" *ngIf="cakeForm.get('cakeDesc').errors?.required && cakeForm.get('cakeDesc').dirty">Hãy nhập mô
             tả bánh</p>
     </div>
     <div class="relative z-0 w-full mb-5 group">
         <input formControlName="cakeSalePrice"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" " required />
+            placeholder="" />
         <label
             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Giá
             khuyến mãi</label>
-        <p class="error" *ngIf="cakeForm.get('cakeSalePrice').errors?.required && cakeForm.get('cakeSalePrice').dirty">
-            Hãy nhập giá khuyễn mãi</p>
         <p class="error"
             *ngIf="cakeForm.get('cakeSalePrice').errors?.invalidPrice && cakeForm.get('cakeSalePrice').dirty">Giá khuyến
             mãi phải là số</p>
@@ -38,7 +36,7 @@
             placeholder=" " required />
         <label
             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Giá
-            gốc</label>
+            gốc <span class="error">*</span></label>
         <p class="error"
             *ngIf="cakeForm.get('cakeOriginalPrice').errors?.required && cakeForm.get('cakeOriginalPrice').dirty">Hãy
             nhập giá gốc</p>
@@ -47,25 +45,45 @@
             Giá gốc phải là số</p>
     </div>
     <div class="relative z-0 w-full mb-5 group">
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chọn loại bánh</label>
-        <select formControlName="cakeType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="mousse" selected>Bánh Mousse</option>
-          <option value="fruit">Bánh kem bế giảng</option>
-          <option value="cupcake">Bánh cốc</option>
-          <option value="whipping">Bánh kem whipping hoa quả</option>
-          <option value="endcake">Bánh kem hoa quả tươi</option>
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chọn loại
+            bánh <span class="error">*</span></label>
+        <select formControlName="cakeType"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="mousse">Bánh Mousse</option>
+            <option value="endcake">Bánh kem bế giảng</option>
+            <option value="cupcake">Bánh cốc</option>
+            <option value="whipping">Bánh kem whipping hoa quả</option>
+            <option value="endcake">Bánh kem hoa quả tươi</option>
         </select>
-        <p class="error" *ngIf="cakeForm.get('cakeType').errors?.required && cakeForm.get('cakeType').dirty">Hãy nhập loại bánh</p>
+        <p class="error" *ngIf="cakeForm.get('cakeType').errors?.required && cakeForm.get('cakeType').dirty">Hãy nhập
+            loại bánh</p>
     </div>
     <div class="relative z-0 w-full mb-5 group">
-        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Ảnh bánh</label>
+        <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList formControlName="cakeSize">
+                <mat-chip *ngFor="let size of cakeSize.value" [selectable]="selectable" [removable]="removable"
+                    (removed)="remove(size)">
+                    {{size}}
+                    <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+                </mat-chip>
+                <input placeholder="Nhập kích thước bánh" [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+        </mat-form-field>
+        <!-- <p class="error" *ngIf="cakeForm.get('cakeSize').errors?.invalidSize && cakeForm.get('cakeSize').dirty">Nhập kích thước bánh theo format: 16x8, 14x8, ...</p> -->
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Ảnh bánh <span class="error">*</span></label>
         <input formControlName="cakeProfileImagePath"
             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             #fileInput id="fileInput" type="file" (change)="selectFile($event)">
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
             800x400px).
         </p>
-        <p class="error" *ngIf="cakeForm.get('cakeProfileImagePath').errors?.required && cakeForm.get('cakeProfileImagePath').dirty">Hãy chọn ảnh bánh</p>
+        <p class="error"
+            *ngIf="cakeForm.get('cakeProfileImagePath').errors?.required && cakeForm.get('cakeProfileImagePath').dirty">
+            Hãy chọn ảnh bánh</p>
     </div>
     <button [disabled]="!cakeForm.valid" type="submit"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Thêm

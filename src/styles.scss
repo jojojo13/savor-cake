@@ -2,6 +2,7 @@
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 body {
   font-family: "Lexend", sans-serif;
   font-optical-sizing: auto;
@@ -113,4 +114,12 @@ body {
     //   width: 10%;
     // }
   }
+}
+.noti-toast{
+  background-color: rgb(34, 211, 66);
+  color: white;
+}
+.error-toast{
+  background-color: rgb(231, 72, 72);
+  color: white;
 }

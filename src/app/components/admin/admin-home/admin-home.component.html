@@ -2,44 +2,48 @@
     <h1>Trang quản trị bánh sinh nhật<br> <span>Savor Cake</span></h1>
     <div class="base-line"></div>
     <div class="cake-collection">
-       <div class="admin-action flex items-center">
-        <span class="custom-dropdown big">
-            <select>    
-                <option>Sherlock Holmes</option>
-                <option>The Great Gatsby</option>  
-                <option>V for Vendetta</option>
-                <option>The Wolf of Wallstreet</option>
-                <option>Quantum of Solace</option>
-            </select>
-        </span>
-        <button (click)="openDialog()">Thêm bánh mới</button>
-       </div>
+        <div class="admin-action flex items-center">
+            <span class="custom-dropdown big">
+                <select [(ngModel)]="cakeTypeSelected" (ngModelChange)="getCakesByType()">
+                    <option value="mousse" selected>Mousse</option>
+                    <option value="endcake">Bánh kem bế giảng</option>
+                    <option>V for Vendetta</option>
+                    <option>The Wolf of Wallstreet</option>
+                    <option>Quantum of Solace</option>
+                </select>
+            </span>
+            <button (click)="openDialog()">Thêm bánh mới</button>
+        </div>
         <div class="cake-list flex flex-wrap cake-list-admin">
             <div class="cake flex flex-col justify-between cake-custom cake-admin" *ngFor="let cake of cakeList">
                 <div class="cake-heading">
                     <div class="imgBox">
-                        <img [src]="cake.url" [alt]="cake.name">
+                        <img [src]="cake.cakeProfileImagePath" [alt]="cake.cakeName">
                     </div>
                     <div class="px-2">
-                        <span class="cake-name">{{ cake.name }}</span>
-                        <span class="cake-detail">{{ cake.description }}</span>
+                        <span class="cake-name">{{ cake.cakeName }}</span>
+                        <span class="cake-detail">{{ cake.cakeDesc }}</span>
                     </div>
                 </div>
                 <div class="cake-sale px-2">
                     <div>
-                        <span class="cake-detail">Giá: <span class="line-through sale">{{ cake.originalPrice
-                                }}</span> <span class="font-bold ml-2">{{ cake.salePrice }}</span></span>
+                        <span class="cake-detail">Giá:
+                            <span [class.line-through]="cake.cakeSalePrice !== '' && cake.cakeSalePrice !== null"
+                                [class.font-bold]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
+                                [class.text-black]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
+                                class="sale">{{ cake.cakeOriginalPrice }}</span>
+                            <span [class.font-bold]="cake.cakeSalePrice !== null" class="ml-2">{{ cake.cakeSalePrice
+                                }}</span>
+                        </span>
                     </div>
                     <div>
-                        <span class="cake-detail">{{ cake.code }}</span>
+                        <span class="cake-detail">{{ cake.cakeCode }}</span>
                     </div>
                     <div>
                         <span class="cake-detail">Kích thước</span>
                     </div>
                     <div class="cake-size">
-                        <div>14x6cm</div>
-                        <div>18x6cm</div>
-                        <div>24x6cm</div>
+                        <div *ngFor="let size of cake.cakeSize">{{size}}</div>
                     </div>
 
                 </div>

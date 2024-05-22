@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { CreateCakeFormComponent } from '../create-cake-form/create-cake-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CakeService } from 'src/app/services/cake.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 
 export class FileUpload {
   key: string | undefined;
-  name= '' ;
+  name = '';
   url: string | undefined;
   file: File;
   constructor(file: File) {
@@ -21,79 +23,36 @@ export class FileUpload {
 })
 
 export class AdminHomeComponent implements OnInit {
-  cakeList: any[] = [
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 42,
-      name: 'Strawberry Shortcake',
-      description: 'Light and airy vanilla sponge cake filled with fresh strawberries and whipped cream.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '280,000 VNĐ',
-      salePrice: '220,000 VNĐ',
-      code: 'V1002'
-    },
-    {
-      id: 31,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '.../../../assets/images/nhan_xoai_dua2.jpeg',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 21,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    }
-  ]
-  constructor(public dialog: MatDialog) { }
+  cakeList: any;
+  cakeTypeSelected = 'mousse';
+
+  constructor(public dialog: MatDialog, private cakeService: CakeService, private toastService: ToastService) { }
 
   ngOnInit(): void {
-  }
-  openDialog() {
-    const dialogRef = this.dialog.open(CreateCakeFormComponent);
+    this.getCakesByType();
   }
 
-  
+  ngOnChanges(): void {
+    this.getCakesByType();
+  }
+
+  getCakesByType(): void {
+    this.cakeService.getCakeByType(this.cakeTypeSelected).subscribe(
+      (response) => {
+        this.cakeList = response;
+        console.log(response)
+      },
+      (error) => {
+        this.toastService.openSnackBar('Không thể tải danh sách bánh', 'cancel', 'end', 'top', 'error-toast');
+      }
+    );
+  }
+
+  openDialog(): void {
+    //this.toastService.openSnackBar('Không thể tải danh sách bánh', 'cancel', 'end', 'top');
+    this.dialog.open(CreateCakeFormComponent);
+  }
+
+
 
 }
