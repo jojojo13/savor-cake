@@ -1,6 +1,9 @@
 <app-banner></app-banner>
 <app-why-choose-us></app-why-choose-us>
-<app-mouse-collection></app-mouse-collection>
-<app-cake-collection></app-cake-collection>
-<div [routerLink]="['/cart']" class="cart-fixed"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+<app-mouse-collection (cakeNumberInCartEmitter)="getCakeNumberInCart($event)"></app-mouse-collection>
+<app-cake-collection (cakeNumberInCartEmitter)="getCakeNumberInCart($event)"></app-cake-collection>
+<div [routerLink]="['/cart']" class="cart-fixed">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    <span class="cake-number-in-cart">{{quantity}}</span>
+</div>
 <app-footer></app-footer>

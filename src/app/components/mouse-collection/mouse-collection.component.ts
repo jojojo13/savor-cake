@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { throwError } from 'rxjs';
+import { TOAST_NOTI } from 'src/app/const';
+import { CakeService } from 'src/app/services/cake.service';
+import { CartService } from 'src/app/services/cart.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-mouse-collection',
@@ -9,7 +13,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['./mouse-collection.component.scss']
 })
 export class MouseCollectionComponent implements OnInit {
-
+  @Output() cakeNumberInCartEmitter = new EventEmitter<string>();
   customOptions: OwlOptions = {
     items: 4,
     dots: true,
@@ -18,78 +22,18 @@ export class MouseCollectionComponent implements OnInit {
  
   }
   
-  cakeList: any[] = [
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 42,
-      name: 'Strawberry Shortcake',
-      description: 'Light and airy vanilla sponge cake filled with fresh strawberries and whipped cream.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '280,000 VNĐ',
-      salePrice: '220,000 VNĐ',
-      code: 'V1002'
-    },
-    {
-      id: 31,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '.../../../assets/images/nhan_xoai_dua2.jpeg',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 21,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    {
-      id: 1,
-      name: 'Chocolate Cake',
-      description: 'Rich and moist chocolate cake layered with velvety chocolate frosting.',
-      url: '../../../assets/images/mousse-chanh-leo.png',
-      originalPrice: '250,000 VNĐ',
-      salePrice: '200,000 VNĐ',
-      code: 'V1001'
-    },
-    // Add more cakes as needed
-  ];
-  constructor(
-    private readonly http: HttpClient,
-  ) {}
+  cakeList: any;
+  constructor(private cartService: CartService, private toastService: ToastService, private cakeService: CakeService) {}
 
   ngOnInit() {
-  
+    this.cakeService.getAllCake().subscribe((res)=>{
+      this.cakeList = res
+    });
+  }
+  addToCart(cake: any) {
+    this.cartService.addCakeToCart(cake);
+    this.toastService.openSnackBar('Đã thêm bánh vào giỏ hàng', 'Đóng', 'end', 'top', TOAST_NOTI);
+    this.cakeNumberInCartEmitter.emit(cake);
   }
 
 

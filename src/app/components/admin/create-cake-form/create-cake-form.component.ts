@@ -1,13 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FileUpload } from '../admin-home/admin-home.component';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { CakeService } from 'src/app/services/cake.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastService } from 'src/app/services/toast.service';
 import { TOAST_ERROR, TOAST_NOTI } from 'src/app/const';
+import { finalize } from 'rxjs';
 export interface Fruit {
   name: string;
 }
@@ -25,22 +26,40 @@ export class CreateCakeFormComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   chipFormControl: any;
+  cakeProfileImagePathValidators: any;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   constructor(private toastService: ToastService,
-     private dialogRef: MatDialogRef<CreateCakeFormComponent>, 
-     private fb: FormBuilder, private firebaseService: FirebaseService, 
-     private cakeService: CakeService) { }
+    private dialogRef: MatDialogRef<CreateCakeFormComponent>,
+    private fb: FormBuilder, private firebaseService: FirebaseService,
+    private cakeService: CakeService,
+    @Inject(MAT_DIALOG_DATA) public cakeSelected: any) { }
 
   ngOnInit(): void {
+    if (this.cakeSelected && this.cakeSelected.cakeProfileImagePath) {
+      this.cakeProfileImagePathValidators = [];
+    } else {
+      this.cakeProfileImagePathValidators = [Validators.required];
+    }
     this.cakeForm = this.fb.group({
       cakeName: ['', Validators.required],
       cakeDesc: ['', Validators.required],
       cakeType: ['mousse', Validators.required],
       cakeOriginalPrice: ['', [Validators.required, this.priceValidator]],
       cakeSalePrice: ['', [this.priceValidator]],
-      cakeProfileImagePath: ['', Validators.required],
+      cakeProfileImagePath: ['', this.cakeProfileImagePathValidators],
       cakeSize: new FormControl(['16x8', '18x8'], [Validators.required])
     });
+
+    if (this.cakeSelected) {
+      this.cakeForm.patchValue({
+        cakeName: this.cakeSelected.cakeName || '',
+        cakeDesc: this.cakeSelected.cakeDesc || '',
+        cakeType: this.cakeSelected.cakeType || 'mousse',
+        cakeOriginalPrice: this.cakeSelected.cakeOriginalPrice || '',
+        cakeSalePrice: this.cakeSelected.cakeSalePrice || '',
+        cakeSize: this.cakeSelected.cakeSize || ['16x8', '18x8']
+      });
+    }
   }
   get cakeSize() {
     return this.cakeForm.get('cakeSize');
@@ -69,6 +88,20 @@ export class CreateCakeFormComponent implements OnInit {
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
+    const file = this.selectedFiles.item(0) as File;
+    let typeFile = this.firebaseService.getExtendsionFile(file.name).toLowerCase();
+
+    if (typeFile != 'jpg' && typeFile != 'png' && typeFile != 'jpeg' && file.size > 2000000) {
+      alert('File must be PNG or JPG/JPEG and less than 20mb');
+      this.clearFileInput();
+    }
+  }
+
+  clearFileInput() {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = ''; // Clear the file input
+    }
   }
   priceValidator(control: FormControl): { [key: string]: any } | null {
     const value = control.value;
@@ -87,25 +120,56 @@ export class CreateCakeFormComponent implements OnInit {
       return isValid ? null : { 'invalidSize': true };
     };
   }
-  addCake(cakeForm: any) {
-    this.upload();
-    cakeForm.cakeProfileImagePath = this.firebaseService.newFilePath;
-    this.cakeService.addCake(cakeForm).subscribe((response) => {
-      this.dialogRef.close();
-      this.toastService.openSnackBar('Thêm bánh thành công', 'Đóng', 'end', 'top', TOAST_NOTI);
-    }, (err) => {
-      this.toastService.openSnackBar('Thêm bánh thất bại', 'Đóng', 'end', 'top', TOAST_ERROR);
-    })
-  }
-  async upload() {
-    const file = this.selectedFiles.item(0) as File;
-    let typeFile = this.firebaseService.getExtendsionFile(file.name).toLowerCase();
-    if ((typeFile == 'jpg' || typeFile == 'png' || typeFile == 'jpeg') && file.size < 2000000) {
-      this.currentFileUpload = new FileUpload(file);
-      await this.firebaseService.pushFileToStorage(this.currentFileUpload).toPromise();
-    } else {
-      alert('Must import png/jpg/jpeg and must be less than 20mb');
 
+  async addCake(cakeForm: any) {
+    if (this.cakeSelected) {
+      if (this.selectedFiles) {
+        cakeForm.cakeProfileImagePath = await this.upload();
+      } else {
+        cakeForm.cakeProfileImagePath = this.cakeSelected.cakeProfileImagePath;
+      }
+      cakeForm.cakeID = this.cakeSelected.cakeID;
+      this.cakeService.updateCake(cakeForm).subscribe(
+        (response) => {
+          this.toastService.openSnackBar('Chỉnh sửa thành công', 'Đóng', 'end', 'top', TOAST_NOTI);
+          this.dialogRef.close();
+        },
+        (err) => {
+          this.toastService.openSnackBar('Chỉnh sửa thất bại', 'Đóng', 'end', 'top', TOAST_ERROR);
+        }
+      );
+    } else {
+      cakeForm.cakeProfileImagePath = await this.upload();
+      this.cakeService.addCake(cakeForm).subscribe(
+        (response) => {
+          this.toastService.openSnackBar('Thêm bánh thành công', 'Đóng', 'end', 'top', TOAST_NOTI);
+          this.dialogRef.close();
+        },
+        (err) => {
+          this.toastService.openSnackBar('Thêm bánh thất bại', 'Đóng', 'end', 'top', TOAST_ERROR);
+        }
+      );
     }
+
+  }
+
+  async upload(): Promise<string> {
+    const file = this.selectedFiles.item(0) as File;
+    this.currentFileUpload = new FileUpload(file);
+
+    // Wait for the upload to complete
+    await this.firebaseService.pushFileToStorage(this.currentFileUpload).toPromise();
+
+    // Return the newFilePath after upload completion
+    return new Promise<string>((resolve, reject) => {
+      this.firebaseService.pushFileToStorage(this.currentFileUpload)
+        .pipe(
+          finalize(() => {
+            resolve(this.firebaseService.newFilePath); // Resolve with newFilePath after upload completion
+          })
+        )
+        .subscribe();
+    });
+
   }
 }

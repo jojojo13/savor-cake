@@ -15,7 +15,7 @@
             <button (click)="openDialog()">Thêm bánh mới</button>
         </div>
         <div class="cake-list flex flex-wrap cake-list-admin">
-            <div class="cake flex flex-col justify-between cake-custom cake-admin" *ngFor="let cake of cakeList">
+            <div class="cake flex flex-col justify-between cake-custom cake-admin" *ngFor="let cake of cakeList" (click)="updateCake(cake)">
                 <div class="cake-heading">
                     <div class="imgBox">
                         <img [src]="cake.cakeProfileImagePath" [alt]="cake.cakeName">

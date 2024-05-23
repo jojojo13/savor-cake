@@ -77,7 +77,7 @@ body {
     box-sizing: border-box;
     flex-wrap: wrap;
 
-    div {
+    .cake-size-item {
       min-width: 60px;
       display: inline-flex !important;
       -webkit-box-align: center !important;
@@ -122,4 +122,7 @@ body {
 .error-toast{
   background-color: rgb(231, 72, 72);
   color: white;
+}
+.example-chip-list{
+  display: block !important;
 }

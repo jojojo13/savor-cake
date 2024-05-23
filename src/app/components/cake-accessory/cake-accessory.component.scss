@@ -1,0 +1,53 @@
+.accessory {
+    .accessory-heading {
+        h1 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            font-family: Lexend, sans-serif;
+            --tw-text-opacity: 1;
+            color: rgba(97, 160, 92, var(--tw-text-opacity));
+            font-weight: bolder;
+        }
+        .note{
+            color: rgb(247, 93, 93);
+        }
+        p{
+            margin: 5px 0;
+        }
+    }
+}
+.cake-custom{
+    border: none !important;
+    background-color: #FFF8DD;
+    height: 440px;
+    .cake-name{
+        font-size: 16px;
+    }
+    .buy-now{
+        width: 100%;
+    }
+}
+.collection-name{
+    font-size: 36px;
+    color: rgb(97, 160, 92);
+    font-weight: 700;
+    line-height: 160%;
+    position: relative;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: Lexend, sans-serif !important;
+    padding-left: 20px;
+}
+.collection-name::before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 6px;
+    background-color: rgb(97, 160, 92);
+    display: block;
+    border-radius: 5px;
+}

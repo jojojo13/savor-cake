@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-
-  constructor() { }
+  quantity:any;
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.getCakeNumberInCart(null);
   }
+  getCakeNumberInCart(cake:any){
+    let cakesInCart = this.cartService.getAllCakesromLocalStorage();
+    this.quantity = cakesInCart.reduce((accumulator:number, cake:any) => accumulator + cake.quantity, 0);
 
+  }
 }

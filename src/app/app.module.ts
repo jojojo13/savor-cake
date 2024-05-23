@@ -27,7 +27,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
+import { CakeAccessoryComponent } from './components/cake-accessory/cake-accessory.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,9 @@ import { FormsModule } from '@angular/forms';
     WelcomePageComponent,
     FooterComponent,
     AdminHomeComponent,
-    CreateCakeFormComponent
+    CreateCakeFormComponent,
+    HeaderComponent,
+    CakeAccessoryComponent
   ],
   imports: [
     BrowserModule,

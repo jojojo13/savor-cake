@@ -1,0 +1,34 @@
+<div class="accessory mt-6">
+    <div class="accessory-heading">
+        <h1>Chọn thêm phụ kiện</h1>
+        <p><b>Mỗi bánh sinh nhật</b> khi mua được <u>tặng kèm</u> <b> 1 bộ dao, dĩa, đĩa cho 6 người ăn</b> kèm nến</p>
+        <p class="note">Quý khách lưu ý: bánh chưa kèm sẵn mũ ạ</p>
+    </div>
+    <owl-carousel-o [options]="customOptions" class="cake-list flex">
+        <ng-container *ngFor="let item of accessories">
+            <ng-template carouselSlide [id]="item.accessoryID">
+                <div class="cake flex flex-col justify-between cake-custom">
+                    <div class="cake-heading">
+                        <div class="imgBox">
+                            <img [src]="item.imagePath" [alt]="item.accessoryName">
+                        </div>
+                        <div class="px-2">
+                            <span class="cake-name">{{ item.accessoryName }}</span>
+                        </div>
+                    </div>
+                    <div class="cake-sale px-2">
+                        <div>
+
+                            <span class="ml-2">{{ item.accessoryPrice
+                                }} đ</span>
+
+                        </div>
+                        <div class="cake-action flex justify-center">
+                            <div class="buy-now" (click)="addToCart(item)">Thêm vào giỏ</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>

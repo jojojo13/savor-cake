@@ -1,37 +1,55 @@
-<div class="container">
-    <h2>Shopping Cart</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-center flex flex-col items-center">
-                    <img src="../../../assets/images/mousse-chanh-leo.png" alt="Product 1" class="product-image"><br>
-                    Product 1
-                </td>
-                <td>2</td>
-                <td>$10.00</td>
-                <td>$20.00</td>
-            </tr>
-            <tr>
-                <td class="text-center flex flex-col items-center">
-                    <img src="../../../assets/images/mousse-chanh-leo.png" alt="Product 1" class="product-image"><br>
-                    Product 1
-                </td>
-                <td>1</td>
-                <td>$15.00</td>
-                <td>$15.00</td>
-            </tr>
-            <!-- Add more rows for additional products -->
-        </tbody>
-    </table>
-    <div class="total">
-        Total: $35.00 <!-- Update this value dynamically using JavaScript -->
+<app-header></app-header>
+<div class="cart-listing py-6 px-32">
+    <div class="cart-listing-header">
+        <h1>Giỏ hàng</h1>
+        <b>Bạn có <span class="number">8 sản phẩm</span> trong giỏ hàng</b>
     </div>
+    <div class="cart-listing-table flex justify-center mt-6">
+        <table>
+            <tr class="text-left first-row">
+                <th class="cake-name-title">Sản phẩm</th>
+                <th class="cake-price">Giá bán</th>
+                <th class="cake-quantity">Số lượng</th>
+                <th class="temp-total-price">Tạm tính</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let cake of cakesTable">
+                <td><div class="cake-item flex">
+                    <div class="imgBox">
+                        <img [src]="cake.cakeProfileImagePath" alt="cake.cakeName">
+                    </div>
+                    <div class="cake-item-detail w-3/5">
+                        <p class="cake-name">{{cake.cakeName}}</p>
+                        <p class="cake-code">{{cake.cakeCode}}</p>
+                        <p class="cake-size">Kích thước: 
+                            <span *ngFor="let size of cake.cakeSize">{{size}}</span>
+                        </p>
+                        <p class="cake-note">Chữ viết trên đế</p>
+                        <div class="form-field mt-4">
+                            <input type="text" placeholder="Nhập chữ viết trên đế tại đây">
+                        </div>
+                    </div>
+                </div></td>
+                <td>{{cake.cakeOriginalPrice}}</td>
+                <td>{{cake.quantity}}</td>
+                <td>{{cake.cakeTotalPrice}}</td>
+                <td>Xóa</td>
+            </tr>
+            <tr *ngFor="let accessory of accessoriesTable">
+                <td><div class="cake-item flex">
+                    <div class="imgBox">
+                        <img [src]="accessory.imagePath" alt="accessory.accessoryName">
+                    </div>
+                    <div class="cake-item-detail w-3/5">
+                        <p class="cake-name">{{accessory.accessoryName}}</p>
+                    </div>
+                </div></td>
+                <td>{{accessory.accessoryPrice}}</td>
+                <td>{{accessory.quantity}}</td>
+                <td>{{accessory.totalPrice}}</td>
+                <td>Xóa</td>
+            </tr>
+        </table>
+    </div>
+    <app-cake-accessory (accessoryEmitter)="getAccessoryEmitter($event)"></app-cake-accessory>
 </div>

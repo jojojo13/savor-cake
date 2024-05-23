@@ -7,12 +7,24 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart-container.component.scss']
 })
 export class CartContainerComponent implements OnInit {
-
+  cakesTable: any;
+  accessoriesTable: any;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     let cakes = this.cartService.getAllCakesromLocalStorage();
-    console.log(cakes)
+    this.cakesTable = cakes.map((cake: any) => {
+      cake.cakeTotalPrice = parseInt(cake.cakeOriginalPrice) * parseInt(cake.quantity);
+      return cake;
+    });
+    this.getAccessoryEmitter(null);
   }
-
+  getAccessoryEmitter(cake: any) {
+    let accessories = this.cartService.getAccessoryromLocalStorage();
+    this.accessoriesTable = accessories.map((accessory: any) => {
+      accessory.totalPrice = parseInt(accessory.accessoryPrice) * parseInt(accessory.quantity);
+      return accessory;
+    });
+    console.log('123')
+  }
 }
