@@ -30,6 +30,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { CakeAccessoryComponent } from './components/cake-accessory/cake-accessory.component'; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
+import { CakeManagementPageAdminComponent } from './components/cake-management-page-admin/cake-management-page-admin.component';
+import { BillReportComponent } from './components/bill-report/bill-report.component';
+import { MoreIngredientsComponent } from './components/more-ingredients/more-ingredients.component';
+import { CakeDrawComponent } from './components/cake-draw/cake-draw.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +53,13 @@ import { CakeAccessoryComponent } from './components/cake-accessory/cake-accesso
     AdminHomeComponent,
     CreateCakeFormComponent,
     HeaderComponent,
-    CakeAccessoryComponent
+    CakeAccessoryComponent,
+    HeaderAdminComponent,
+    CakeManagementPageAdminComponent,
+    BillReportComponent,
+    MoreIngredientsComponent,
+    CakeDrawComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -62,7 +77,10 @@ import { CakeAccessoryComponent } from './components/cake-accessory/cake-accesso
     MatIconModule,
     MatSnackBarModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

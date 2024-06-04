@@ -126,3 +126,45 @@ body {
 .example-chip-list{
   display: block !important;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c6c3c3; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #8f8b8b; 
+}
+.error-msg{
+  color: red;
+}
+.remove_item_in_cart {
+  color: red;
+}
+.wave{
+  position: absolute;
+  height: 130px;
+  width: 100%;
+  bottom: -129px;
+  left: 0;
+}
+.d-wave{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.sasss{
+  padding: 20px !important;
+  height: 120vh !important;
+}

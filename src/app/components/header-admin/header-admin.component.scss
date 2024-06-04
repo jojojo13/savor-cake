@@ -1,0 +1,16 @@
+.header{
+    background-color: #61985C;
+    gap: 60px;
+    .header-left{
+        img{
+            width: 80px;
+        }
+    }
+    .header-right{
+        ul li{
+            color: white;
+            margin: 0 40px;
+            font-size: 24px
+        }
+    }
+}

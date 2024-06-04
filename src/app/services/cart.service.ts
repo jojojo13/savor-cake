@@ -18,9 +18,22 @@ export class CartService {
       list.push(cake);
     }
     // Update the localStorage with the updated list
+    this.updateCakeInLocalStorage(list);
+  }
+
+
+  updateCakeInLocalStorage(list: any) {
     localStorage.setItem('orderItems', JSON.stringify(list));
   }
-  
+
+  getAllCakesromLocalStorage() {
+    const storedList = localStorage.getItem('orderItems');
+    if (storedList) {
+      return JSON.parse(storedList);
+    } else {
+      return [];
+    }
+  }
   addAccessoryToCart(accessory: any) {
     let list = JSON.parse(localStorage.getItem('orderItemAccessories') || '[]');
     let existingAccessoryIndex = list.findIndex((item: any) => item.accessoryID === accessory.accessoryID);
@@ -32,15 +45,7 @@ export class CartService {
       list.push(accessory);
     }
     // Update the localStorage with the updated list
-    localStorage.setItem('orderItemAccessories', JSON.stringify(list));
-  }
-  getAllCakesromLocalStorage() {
-    const storedList = localStorage.getItem('orderItems');
-    if (storedList) {
-      return JSON.parse(storedList);
-    } else {
-      return [];
-    }
+    this.updateAccessoryInLocalStorage(list);
   }
   getAccessoryromLocalStorage() {
     const storedList = localStorage.getItem('orderItemAccessories');
@@ -49,5 +54,8 @@ export class CartService {
     } else {
       return [];
     }
+  }
+  updateAccessoryInLocalStorage(list: any) {
+    localStorage.setItem('orderItemAccessories', JSON.stringify(list));
   }
 }

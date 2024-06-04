@@ -1,0 +1,110 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="flex justify-end">
+        <span class="custom-dropdown billStatus">
+            <select [(ngModel)]="billStatus" (ngModelChange)="getBillByStatus()">
+                <option value="" selected>Tất cả</option>
+                <option value="processing" selected>Đang xử lý</option>
+                <option value="done">Đã hoàn thành</option>
+            </select>
+        </span>
+    </div>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" *ngIf="billingReport">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Người đặt bánh
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Người nhận bánh
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Chi tiết đơn hàng
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Địa chỉ
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Phương thức <br>thanh toán
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Ngày giao
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Giờ giao
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Ghi chú
+                </th>
+                <!-- <th scope="col" class="px-6 py-3">
+                    Thời gian đặt hàng
+                </th> -->
+                <th>
+                   Trạng thái
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bill of billingReport" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <p>Tên: {{bill.bookerName}}</p>
+                    <p>Điện thoại: {{bill.bookerPhone}}</p>
+                    <p>Email: {{bill.bookerEmail}}</p>
+                </td>
+                <td class="px-6 py-4">
+                    <p>Tên: {{bill.receiverName}}</p>
+                    <p>Điện Thoại: {{bill.receiverPhone}}</p>
+                </td>
+                <td class="px-6 py-4">
+                 <div class="cake-item flex" *ngFor="let cake of bill.selectedCakes">
+                    <div class="imgBox">
+                        <img [src]="cake.cakeProfileImagePath" alt="">
+                    
+                    </div>
+                    <div class="detail">
+                        <p>{{cake.cakeName}}</p>
+                        <p>SL: {{cake.quantity}}</p>
+                        <p>Giá: {{cake.cakeTotalPrice}}</p>
+                    </div>
+               
+                 </div>
+                 <div class="cake-item flex" *ngFor="let acc of bill.selectedAccessories">
+                    <div class="imgBox">
+                        <img [src]="acc.imagePath" alt="">
+                    </div>
+                    <div class="detail">
+                        <p>{{acc.accessoryName}}</p>
+                        <p>SL: {{acc.quantity}}</p>
+                        <p>Giá: {{acc.totalPrice}}</p>
+                    </div>
+               
+                 </div>
+                </td>
+                <td class="px-6 py-4">
+                    <p>Đường: {{bill.addressStreet}}</p>
+                    <p>Phường: {{bill.addressDistrict}}</p>
+                    <p>Quận: {{bill.addressCity}}</p>
+                </td>
+                <td class="px-6 py-4">
+                    <p>{{bill.paymentType}}</p>
+                </td>
+                <td class="px-6 py-4">
+                    <p>{{bill.receiveDate}}</p>
+                </td>
+                <td class="px-6 py-4">
+                    <p>{{bill.receiveTime}}</p>
+                </td>
+                <td class="px-6 py-4">
+                    <p>{{bill.note}}</p>
+                </td>
+                <!-- <td class="px-6 py-4">
+                    <p>{{bill.createdDate}}</p>
+                </td> -->
+                <td>
+                    <button *ngIf="bill.status == 'processing'" (click)="completeBill(bill)">Hoàn thành đơn</button>
+                    <span *ngIf="bill.status == 'done'" style="color: green; font-weight: bold;">Đã hoàn thành</span>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

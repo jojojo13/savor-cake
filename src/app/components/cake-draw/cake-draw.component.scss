@@ -1,0 +1,75 @@
+.cake-draw {
+    .cake-draw-left {
+    
+
+        .cake-options {
+            h3 {
+                font-family: Lexend, sans-serif;
+                font-weight: 700;
+                line-height: 250%;
+                font-size: 36px;
+                color: rgb(47, 33, 5) !important;
+            }
+
+            .cake-options-img {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                width: 66.6667%;
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+                -webkit-box-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                align-items: center;
+            }
+        }
+    }
+
+    h2 {
+        line-height: 125%;
+        color: rgb(97, 160, 92);
+        font-weight: 700;
+        padding-top: 180px;
+        font-size: 42px;
+        text-align: left;
+        font-family: Lexend, sans-serif !important;
+    }
+
+    .base {
+        width: 126px;
+        height: 6px;
+        background: rgb(97, 160, 92);
+        border-radius: 5px;
+        margin-top: 30px;
+    }
+
+    .desc {
+        font-size: 20px;
+        line-height: 160%;
+        width:550px;
+        margin-left: 60px;
+        color: rgb(64, 64, 64);
+        font-family: Quicksand;
+        font-style: normal;
+        font-weight: 500;
+      
+    }
+    .favor-card span{
+        width: 25%;
+        min-width: 62px;
+        background: rgb(175, 212, 165);
+        box-shadow: rgba(9, 101, 58, 0.14) 14px 32px 75px -35px;
+        border-radius: 100px 100px 100px 0px;
+        padding: 10px;
+        margin-bottom: -30px;
+    }
+    .favor-card p{
+        color: rgb(64, 64, 64);
+        font-family: Quicksand;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 160%;
+    }
+}

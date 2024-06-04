@@ -1,0 +1,74 @@
+.more-ingredients {
+    color: rgb(97, 160, 92);
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 125%;
+    text-align: center;
+    font-family: Lexend, sans-serif !important;
+    background-color: #FEFBF0;
+    .more-ingredients-img {
+        width: 80%;
+        margin: 0 auto;
+
+        .imgBox {
+            width: 300px;
+
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .desc {
+        color: rgb(64, 64, 64);
+        font-family: Quicksand;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 160%;
+        margin: 15px auto;
+        width: 85%;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .detail {
+        margin: 0 auto;
+        // width: 1050px;
+    }
+
+    .inbox {
+        padding: 6px 0px;
+        width: 40%;
+        min-width: 260px;
+        margin: 60px auto 30px;
+        background: linear-gradient(to right, rgb(251, 215, 69), rgb(252, 174, 22));
+        border-radius: 10rem;
+        display: block;
+        position: relative;
+        cursor: pointer;
+
+        p {
+            text-align: center;
+            font-size: 36px;
+            line-height: 160%;
+            text-transform: uppercase;
+            color: rgb(255, 255, 255);
+            font-weight: 700;
+            text-shadow: rgb(15, 117, 69) 2px 0px, rgb(15, 117, 69) -2px 0px, rgb(15, 117, 69) 0px 2px, rgb(15, 117, 69) 0px -2px, rgb(15, 117, 69) 2px 2px, rgb(15, 117, 69) -2px -2px, rgb(15, 117, 69) 2px -2px, rgb(15, 117, 69) -2px 2px;
+            font-family: Lexend, sans-serif !important;
+        }
+    }
+
+    .inbox::before {
+        content: "";
+        position: absolute;
+        inset: 0px;
+        margin: 4px;
+        border: 1px solid rgb(243, 173, 34);
+        border-radius: 10rem;
+
+    }
+  
+}

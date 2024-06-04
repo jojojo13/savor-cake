@@ -2,7 +2,7 @@
 <div class="cart-listing py-6 px-32">
     <div class="cart-listing-header">
         <h1>Giỏ hàng</h1>
-        <b>Bạn có <span class="number">8 sản phẩm</span> trong giỏ hàng</b>
+        <b>Bạn có <span class="number">{{totalBillQuantity}} sản phẩm</span> trong giỏ hàng</b>
     </div>
     <div class="cart-listing-table flex justify-center mt-6">
         <table>
@@ -14,42 +14,253 @@
                 <th></th>
             </tr>
             <tr *ngFor="let cake of cakesTable">
-                <td><div class="cake-item flex">
-                    <div class="imgBox">
-                        <img [src]="cake.cakeProfileImagePath" alt="cake.cakeName">
-                    </div>
-                    <div class="cake-item-detail w-3/5">
-                        <p class="cake-name">{{cake.cakeName}}</p>
-                        <p class="cake-code">{{cake.cakeCode}}</p>
-                        <p class="cake-size">Kích thước: 
-                            <span *ngFor="let size of cake.cakeSize">{{size}}</span>
-                        </p>
-                        <p class="cake-note">Chữ viết trên đế</p>
-                        <div class="form-field mt-4">
-                            <input type="text" placeholder="Nhập chữ viết trên đế tại đây">
+                <td>
+                    <div class="cake-item flex">
+                        <div class="imgBox">
+                            <img [src]="cake.cakeProfileImagePath" alt="cake.cakeName">
+                        </div>
+                        <div class="cake-item-detail w-3/5">
+                            <p class="cake-name">{{cake.cakeName}}</p>
+                            <p class="cake-code">{{cake.cakeCode}}</p>
+                            <p class="cake-size">Kích thước:
+                                <span *ngFor="let size of cake.cakeSize">{{size}}</span>
+                            </p>
+                            <p class="cake-note">Chữ viết trên đế</p>
+                            <div class="form-field mt-4">
+                                <input type="text" placeholder="Nhập chữ viết trên đế tại đây">
+                            </div>
                         </div>
                     </div>
-                </div></td>
-                <td>{{cake.cakeOriginalPrice}}</td>
+                </td>
+                <td>
+                    <p [class.line-through]="cake.cakeSalePrice !== '' && cake.cakeSalePrice !== null"
+                        [class.text-black]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''" class="sale">{{
+                        cake.cakeOriginalPrice }}</p>
+                    <p>{{ cake.cakeSalePrice
+                        }}</p>
+                </td>
                 <td>{{cake.quantity}}</td>
                 <td>{{cake.cakeTotalPrice}}</td>
-                <td>Xóa</td>
+                <td style="cursor: pointer;" (click)="removeItem(cake,'cake')"><mat-icon class="remove_item_in_cart">delete</mat-icon></td>
             </tr>
             <tr *ngFor="let accessory of accessoriesTable">
-                <td><div class="cake-item flex">
-                    <div class="imgBox">
-                        <img [src]="accessory.imagePath" alt="accessory.accessoryName">
+                <td>
+                    <div class="cake-item flex">
+                        <div class="imgBox">
+                            <img [src]="accessory.imagePath" alt="accessory.accessoryName">
+                        </div>
+                        <div class="cake-item-detail w-3/5">
+                            <p class="cake-name">{{accessory.accessoryName}}</p>
+                        </div>
                     </div>
-                    <div class="cake-item-detail w-3/5">
-                        <p class="cake-name">{{accessory.accessoryName}}</p>
-                    </div>
-                </div></td>
+                </td>
                 <td>{{accessory.accessoryPrice}}</td>
                 <td>{{accessory.quantity}}</td>
                 <td>{{accessory.totalPrice}}</td>
-                <td>Xóa</td>
+                <td style="cursor: pointer;" (click)="removeItem(accessory,'accessory')"><mat-icon
+                        class="remove_item_in_cart">remove_shopping_cart</mat-icon></td>
             </tr>
         </table>
     </div>
     <app-cake-accessory (accessoryEmitter)="getAccessoryEmitter($event)"></app-cake-accessory>
+    <div class="confirm-billing">
+        <div class="cart-listing-header">
+            <h1>Xác nhận đơn hàng</h1>
+        </div>
+        <div class="confirm-billing-content flex">
+            <div class="billing-data-fill w-1/2">
+                <form [formGroup]="billingForm">
+                    <div class="form-section">
+                        <h2 class="mb-2">Thông tin người đặt</h2>
+                        <input type="text" placeholder="Họ tên" formControlName="bookerName">
+                        <p class="error-msg"
+                            *ngIf="billingForm.get('bookerName').errors?.required && billingForm.get('bookerName').dirty">
+                            Hãy nhập trường này</p>
+                        <input type="text" placeholder="Số điện thoại" formControlName="bookerPhone">
+                        <p class="error-msg"
+                            *ngIf="billingForm.get('bookerPhone').errors?.required && billingForm.get('bookerPhone').dirty">
+                            Hãy nhập trường này</p>
+                        <input type="text" placeholder="Email" formControlName="bookerEmail">
+                    </div>
+                    <div class="form-section">
+                        <h2 class="mb-2">Thông tin người nhận</h2>
+                        <input type="text" placeholder="Họ tên" formControlName="receiverName">
+                        <p class="error-msg"
+                            *ngIf="billingForm.get('receiverName').errors?.required && billingForm.get('receiverName').dirty">
+                            Hãy nhập trường này</p>
+
+                        <input type="text" placeholder="Số điện thoại" formControlName="receiverPhone">
+                        <p class="error-msg"
+                            *ngIf="billingForm.get('receiverPhone').errors?.required && billingForm.get('receiverPhone').dirty">
+                            Hãy nhập trường này</p>
+
+                    </div>
+                    <div class="form-section">
+                        <h2 class="mb-2">Địa chỉ lấy hàng</h2>
+                        <div class="form-section-divide flex justify-between">
+                            <div class="item">
+                                <div class="normal-text">Chọn Quận</div>
+                                <input type="text" placeholder="Tên quận" formControlName="addressCity">
+                                <p class="error-msg"
+                                    *ngIf="billingForm.get('addressCity').errors?.required && billingForm.get('addressCity').dirty">
+                                    Hãy nhập trường này</p>
+
+                            </div>
+                            <div class="item">
+                                <div class="normal-text">Chọn Phường</div>
+                                <input type="text" placeholder="Tên phường" formControlName="addressDistrict">
+                                <p class="error-msg"
+                                    *ngIf="billingForm.get('addressDistrict').errors?.required && billingForm.get('addressDistrict').dirty">
+                                    Hãy nhập trường này</p>
+
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="normal-text">Chọn Phường</div>
+                            <input type="text" placeholder="Số nhà, đường" formControlName="addressStreet">
+                            <p class="error-msg"
+                                *ngIf="billingForm.get('addressStreet').errors?.required && billingForm.get('addressStreet').dirty">
+                                Hãy nhập trường này</p>
+
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h2 class="mb-2">Hóa đơn</h2>
+                        <input type="checkbox" id="get-bill" placeholder="" formControlName="invoice">
+                        <label for="get-bill" class="normal-text">Có lấy hóa đơn</label>
+                    </div>
+                    <div class="form-section">
+                        <h2 class="mb-2">Ghi chú khác cho đơn hàng</h2>
+                        <p class="normal-text no-write">KHÔNG ghi chữ viết bánh tại đây.</p>
+                        <p class="normal-text">Nếu muốn ghi chữ, vui lòng quay lại trang GIỎ HÀNG liền trước ạ</p>
+                        <textarea type="text" rows="4" placeholder="Ghi chú" formControlName="note"></textarea>
+                    </div>
+                    <div class="form-section">
+                        <h2 class="mb-2">Thời gian nhận hàng</h2>
+                        <p class="normal-text">Ngày</p>
+                        <!-- <p class="normal-text no-write">Vui lòng nhập địa chỉ trước</p> -->
+                        <mat-form-field>
+                            <mat-label>Chọn ngày</mat-label>
+                            <input matInput [matDatepicker]="picker" [min]="todayDate" formControlName="receiveDate" placeholder="DD/MM/YYYY">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        <p class="error-msg"
+                        *ngIf="billingForm.get('receiveDate').errors?.required && billingForm.get('receiveDate').dirty">
+                        Hãy nhập trường này</p>
+
+                        <p class="normal-text mt-4">Giờ</p>
+                        <select name="" id="" class="" formControlName="receiveTime">
+                            <option value="8h30-9h30" selected>8h30-9h30</option>
+                            <option value="9h-10h">9h-10h</option>
+                            <option value="9h30-10h30">9h30-10h30</option>
+                            <option value="10h-11h">10h-11h</option>
+                            <option value="10h30-11h30">10h30-11h30</option>
+                            <option value="11h-12h">11h-12h</option>
+                            <option value="11h30-12h30">11h30-12h30</option>
+                            <option value="12h-13h">12h-13h</option>
+                            <option value="12h30-13h30">12h30-13h30</option>
+                            <option value="13h-14h">13h-14h</option>
+                            <option value="13h30-14h30">13h30-14h30</option>
+                            <option value="14h-15h">14h-15h</option>
+                            <option value="14h30-15h30">14h30-15h30</option>
+                            <option value="15h-16h">15h-16h</option>
+                            <option value="15h30-16h30">15h30-16h30</option>
+                            <option value="16h-17h">16h-17h</option>
+                            <option value="16h30-17h30">16h30-17h30</option>
+                            <option value="17h-18h">17h-18h</option>
+                            <option value="17h30-18h30">17h30-18h30</option>
+                            <option value="18h-19h">18h-19h</option>
+                            <option value="18h30-19h30">18h30-19h30</option>
+                            <option value="19h-20h">19h-20h</option>
+                            <option value="19h30-20h30">19h30-20h30</option>
+                            <option value="20h-21h">20h-21h</option>
+                        </select>
+                        <p class="error-msg"
+                        *ngIf="billingForm.get('receiveTime').errors?.required && billingForm.get('receiveTime').dirty">
+                        Hãy nhập trường này</p>
+
+                        <p class="normal-text">Savor cần ít nhất <b>20 phút</b> để chuẩn bị đơn hàng của bạn và sẽ giao
+                            trong thời gian khoảng <b> 30 phút đến 1 tiếng</b></p>
+                    </div>
+                </form>
+            </div>
+            <div class="billing-information w-1/2 ml-8">
+                <div class="form-section">
+                    <h2 class="mb-2">Thông tin đơn hàng</h2>
+                    <div class="list-cake-cart">
+                        <div class="cake-item" *ngFor="let cake of cakesTable">
+                            <div class="flex justify-between">
+                                <div class="imgBox">
+                                    <img [src]="cake.cakeProfileImagePath" alt="cake.cakeName">
+                                </div>
+                                <div class="cake-item-detail w-3/5">
+                                    <p class="cake-name">{{cake.cakeName}}</p>
+                                    <p class="cake-code">SL: {{cake.quantity}}</p>
+
+                                </div>
+                                <div class="cake-price">
+                                    <p [class.line-through]="cake.cakeSalePrice !== '' && cake.cakeSalePrice !== null"
+                                        [class.text-black]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
+                                        class="sale">{{
+                                        cake.cakeOriginalPrice }}</p>
+                                    <p>{{ cake.cakeSalePrice
+                                        }}</p>
+                                </div>
+                            </div>
+                            <p class="normal-text">Chữ viết trên đế</p>
+                        </div>
+                        <div class="cake-item" *ngFor="let accessory of accessoriesTable">
+                            <div class="flex justify-between">
+                                <div class="imgBox">
+                                    <img [src]="accessory.imagePath" alt="accessory.accessoryName">
+                                </div>
+                                <div class="cake-item-detail w-3/5">
+                                    <p class="cake-name">{{accessory.accessoryName}}</p>
+                                    <p class="cake-code">SL: {{accessory.quantity}}</p>
+
+                                </div>
+                                <div class="cake-price">
+                                    <p>{{ accessory.accessoryPrice
+                                        }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="billing-report mt-6">
+                        <div class="billing-report-section flex justify-between">
+                            <p class="normal-text mb-2">Số lượng sản phẩm :</p>
+                            <p class="normal-text mb-2">{{totalBillQuantity}}</p>
+                        </div>
+                        <div class="billing-report-section flex justify-between">
+                            <p class="normal-text mb-2">Tổng tiền hàng:</p>
+                            <p class="normal-text mb-2">{{totalBillPrice}}</p>
+                        </div>
+                        <div class="billing-report-section flex justify-between">
+                            <p class="normal-text mb-2">Tổng đơn:</p>
+                            <p class="normal-text mb-2">{{totalBillPrice}}</p>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h2 class="mb-2">Phương thức thanh toán</h2>
+                        <input type="radio" id="bank" name="paymentType" value="Bank" [(ngModel)]="selectedPayment">
+                        <label for="bank">Chuyển khoản ngân hàng</label><br>
+                        <input type="radio" id="cod" name="paymentType" value="COD" [(ngModel)]="selectedPayment">
+                        <label for="cod">Thanh toán khi nhận hàng (COD)</label><br>
+                    </div>
+                    <div class="qr-code my-4">
+                        <img style="width: 200px;" src="../../../assets/images/qr_code_barcode.jpg" alt="">
+                    </div>
+                   
+                    <p class="mt-2">Savor khuyến khích quý khách chuyển khoản trước toàn bộ để được tự động xác nhận đơn
+                        hàng nhanh hơn ạ.</p>
+                    <button class="book" [disabled]="!billingForm.valid || !billingForm.dirty" (click)="bookingNow()">Đặt hàng</button>
+                </div>
+                <!-- [disabled]="!billingForm.valid || !billingForm.dirty" -->
+            </div>
+        </div>
+    </div>
 </div>
+<app-footer></app-footer>

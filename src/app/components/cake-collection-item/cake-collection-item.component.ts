@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { TOAST_NOTI } from 'src/app/const';
 import { CakeService } from 'src/app/services/cake.service';
@@ -23,7 +24,7 @@ export class CakeCollectionItemComponent implements OnInit {
   }
 
   cakeList: any;
-  constructor(private cartService: CartService, private toastService: ToastService, private cakeService: CakeService) { }
+  constructor(private router: Router, private cartService: CartService, private toastService: ToastService, private cakeService: CakeService) { }
 
   ngOnInit(): void {
     this.cakeService.getCakeByType(this.cakeType).subscribe((response) =>{
@@ -34,6 +35,13 @@ export class CakeCollectionItemComponent implements OnInit {
     this.cartService.addCakeToCart(cake);
     this.toastService.openSnackBar('Đã thêm bánh vào giỏ hàng', 'Đóng', 'end', 'top', TOAST_NOTI);
     this.cakeNumberInCartEmitter.emit(cake);
+  
+  }
+  addToCart2(cake:any){
+    this.cartService.addCakeToCart(cake);
+    this.cakeNumberInCartEmitter.emit(cake);
+
+    this.router.navigateByUrl("/cart")
   }
 
 }

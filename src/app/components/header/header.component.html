@@ -1,12 +1,12 @@
 <div class="header flex justify-center py-6 px-32 items-center">
-    <div class="header-left">
-        <img src="../../../assets/images/savor-cakes-logo-white.png" alt="">
+    <div class="header-left" style="cursor: pointer;">
+        <img [routerLink]="['/']" routerLinkActive="router-link-active"  src="../../../assets/images/savor-cakes-logo-white.png" alt="">
     </div>
     <div class="header-right">
         <ul class="flex">
-            <li>Menu Bánh sinh nhật</li>
-            <li>Tư vấn</li>
-            <li>Liên hệ</li>
+            <li style="cursor: pointer;" [routerLink]="['']" routerLinkActive="router-link-active" >Menu Bánh sinh nhật</li>
+            <li style="cursor: pointer;" (click)="scrollToFooter()">Tư vấn</li>
+            <li style="cursor: pointer;" (click)="scrollToFooter()"> Liên hệ</li>
         </ul>
     </div>
 </div>

@@ -35,7 +35,7 @@
                     <div class="cake-size-item" *ngFor="let size of cake.cakeSize">{{size}}</div>
                 </div>
                   <div class="cake-action flex justify-center">
-                    <div class="buy-now">Đặt ngay</div>
+                    <div class="buy-now" (click)="addToCart2(cake)">Đặt ngay</div>
                     <div class="add-to-cart" (click)="addToCart(cake)"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
                   </div>
                 </div>

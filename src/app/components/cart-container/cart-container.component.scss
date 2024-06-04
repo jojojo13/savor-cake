@@ -30,21 +30,30 @@
     .cart-listing-table {
         width: 100%;
 
+      
+
         table {
             width: 100%;
             border-top: 1px solid #61985C;
             border-bottom: 1px solid #61985C;
-            .first-row{
-              
+
+            .first-row {
+
                 height: 60px;
                 border-bottom: 1px solid rgb(208, 204, 204);
             }
+
             .cake-name-title {
                 width: 55%;
             }
 
+            tr {
+                border-bottom: 1px solid black;
+            }
+
             td {
-                padding-top: 20px;
+                padding: 10px 0;
+
                 .imgBox {
                     width: 145px;
 
@@ -52,6 +61,7 @@
                         width: 100%;
                         object-fit: cover;
                     }
+
                 }
 
                 .cake-item-detail {
@@ -72,8 +82,9 @@
                         color: rgba(107, 114, 128, 1);
                         margin: 0 !important;
                     }
-                    input{
-                    
+
+                    input {
+
                         width: 100%;
                         padding: 5px 0;
                         border-radius: 3px;
@@ -85,5 +96,163 @@
         }
 
 
+    }
+
+    .confirm-billing {
+        .billing-data-fill {
+            .form-section-divide {
+                .item {
+                    width: 48%;
+                }
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                line-height: 2rem;
+                font-family: Lexend, sans-serif;
+                font-weight: 700;
+                margin-right: 0px;
+                margin-left: 0px;
+                padding: 0px
+            }
+
+            .normal-text {
+                font-size: 1.125rem;
+                line-height: 1.75rem;
+                font-family: Quicksand, sans-serif;
+            }
+
+            input {
+                --tw-bg-opacity: 1;
+                background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+                border-width: 1px;
+                --tw-border-opacity: 1;
+                border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+                --tw-text-opacity: 1;
+                color: rgba(17, 24, 39, var(--tw-text-opacity));
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                border-radius: 0.5rem;
+                display: block;
+                width: 100%;
+                padding: 0.625rem;
+                margin-bottom: 10px;
+            }
+
+            input[type="checkbox"] {
+
+                display: inline-block;
+                width: 20px;
+                padding: 0;
+            }
+
+            textarea {
+                --tw-bg-opacity: 1;
+                background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+                border-width: 1px;
+                --tw-border-opacity: 1;
+                border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+                --tw-text-opacity: 1;
+                color: rgba(17, 24, 39, var(--tw-text-opacity));
+                width: 100%;
+                resize: none;
+            }
+
+            .no-write {
+                --tw-text-opacity: 1;
+                color: rgba(242, 89, 75, var(--tw-text-opacity));
+            }
+        }
+
+        .billing-information {
+            .cake-item {
+                margin-bottom: 10px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                line-height: 2rem;
+                font-family: Lexend, sans-serif;
+                font-weight: 700;
+                margin-right: 0px;
+                margin-left: 0px;
+                padding: 0px
+            }
+
+            .imgBox {
+                width: 145px;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+            }
+
+            .list-cake-cart {
+                padding-right: 20px;
+                max-height: 400px;
+                overflow-y: scroll;
+            }
+        }
+
+
+        #cod:checked,
+        bank:checked {
+            border-color: transparent;
+            background-color: currentcolor;
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        #bank,
+        #cod {
+            width: 1rem;
+            height: 1rem;
+            --tw-text-opacity: 1;
+            color: rgba(97, 160, 92, var(--tw-text-opacity));
+            margin-right: 10px;
+        }
+
+        select {
+            --tw-bg-opacity: 1;
+            background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+            border-width: 1px;
+            --tw-border-opacity: 1;
+            border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+            --tw-text-opacity: 1;
+            color: rgba(17, 24, 39, var(--tw-text-opacity));
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .book {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+            width: 66.6667%;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 1.25rem 1.5rem;
+            --tw-bg-opacity: 1;
+            background-color: rgba(97, 160, 92, var(--tw-bg-opacity));
+            --tw-text-opacity: 1;
+            color: rgba(255, 255, 255, var(--tw-text-opacity));
+            font-weight: 700;
+            border-radius: 10px;
+        }
+        .book:disabled{
+            background-color: gainsboro;
+        }
     }
 }

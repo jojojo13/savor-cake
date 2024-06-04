@@ -11,5 +11,13 @@ export class BannerComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  scrollToIntro() {
+    document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  scrollToFooter() {
+    document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  scrollToCategory() {
+    document.getElementById('category')?.scrollIntoView({ behavior: 'smooth' });
+  }
 }

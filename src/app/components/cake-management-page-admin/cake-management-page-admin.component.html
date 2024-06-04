@@ -1,0 +1,55 @@
+<div class="cake-collection-wrap relative py-10 px-32">
+    <h1>Trang quản trị bánh sinh nhật<br> <span>Savor Cake</span></h1>
+    <div class="base-line"></div>
+    <div class="cake-collection">
+        <div class="admin-action flex items-center">
+            <span class="custom-dropdown big">
+                <select [(ngModel)]="cakeTypeSelected" (ngModelChange)="getCakesByType()">
+                    <option value="mousse" selected>Mousse</option>
+                    <option value="endcake">Bánh kem bế giảng</option>
+  
+                </select>
+            </span>
+            <button (click)="openDialog()">Thêm bánh mới</button>
+        </div>
+        <div class="cake-list flex flex-wrap cake-list-admin">
+            <div class="cake flex flex-col justify-between cake-custom cake-admin" *ngFor="let cake of cakeList" (click)="updateCake(cake)">
+                <mat-icon class="remove_item_in_cart custom-icon" (click)="removeCake($event, cake)">delete</mat-icon>
+                <div class="cake-heading">
+                    <div class="imgBox">
+                        <img [src]="cake.cakeProfileImagePath" [alt]="cake.cakeName">
+                    </div>
+                    <div class="px-2">
+                        <span class="cake-name">{{ cake.cakeName }}</span>
+                        <span class="cake-detail">{{ cake.cakeDesc }}</span>
+                    </div>
+                </div>
+                <div class="cake-sale px-2">
+                    <div>
+                        <span class="cake-detail">Giá:
+                            <span [class.line-through]="cake.cakeSalePrice !== '' && cake.cakeSalePrice !== null"
+                                [class.font-bold]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
+                                [class.text-black]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
+                                class="sale">{{ cake.cakeOriginalPrice }}</span>
+                            <span [class.font-bold]="cake.cakeSalePrice !== null" class="ml-2">{{ cake.cakeSalePrice
+                                }}</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="cake-detail">{{ cake.cakeCode }}</span>
+                    </div>
+                    <div>
+                        <span class="cake-detail">Kích thước</span>
+                    </div>
+                    <div class="cake-size">
+                        <div *ngFor="let size of cake.cakeSize">{{size}}</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <img class="blueberry-top-left" src="../../../assets/images/blueberry-top-left.png" alt="">
+    <img class="buble-top-right" src="../../../assets/images/bubble-top-right.png" alt="">
+</div>

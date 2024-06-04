@@ -1,19 +1,20 @@
-<div class="banner py-8 px-20 relative">
+<div clas="sasss" id="intro">
+  <div class="banner py-8 px-20">
     <div class="banner-menu flex px-12 py-2 justify-between items-center">
       <div class="banner-menmu-left">
         <div class="imgBox">
-          <img src="../assets/images/savor-cakes-logo-green.png" alt=""  class="">
+          <img src="../assets/images/savor-cakes-logo-green.png" alt="" class="">
         </div>
       </div>
-    
+
       <div class="banner-menu-right">
         <ul class="flex items-center">
-          <li>Giới <br> thiệu</li>
-          <li>Danh <br> mục</li>
+          <li (click)="scrollToIntro()">Giới <br> thiệu</li>
+          <li (click)="scrollToCategory()">Danh <br> mục</li>
           <li>Chính <br> sách</li>
           <li>Cửa <br> hàng</li>
           <li>Feedback</li>
-          <li>Liên hệ</li>
+          <li (click)="scrollToFooter()">Liên hệ</li>
         </ul>
       </div>
     </div>
@@ -25,5 +26,8 @@
         <img src="../assets/images/heroCakesMobi.png" alt="">
       </div>
     </div>
-    <img src="../assets/images/left.png" class="left absolute"  alt="">
+    <img src="../../../assets/images/left.png" class="left absolute" alt="">
+
   </div>
+
+</div>
