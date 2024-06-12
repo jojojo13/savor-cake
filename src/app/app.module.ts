@@ -38,7 +38,10 @@ import { CakeManagementPageAdminComponent } from './components/cake-management-p
 import { BillReportComponent } from './components/bill-report/bill-report.component';
 import { MoreIngredientsComponent } from './components/more-ingredients/more-ingredients.component';
 import { CakeDrawComponent } from './components/cake-draw/cake-draw.component';
-
+import { PolicyComponent } from './components/policy/policy.component';
+import { ShopSystemComponent } from './components/shop-system/shop-system.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LoaderComponent } from './loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +61,10 @@ import { CakeDrawComponent } from './components/cake-draw/cake-draw.component';
     CakeManagementPageAdminComponent,
     BillReportComponent,
     MoreIngredientsComponent,
-    CakeDrawComponent
+    CakeDrawComponent,
+    PolicyComponent,
+    ShopSystemComponent,
+    LoaderComponent
     
   ],
   imports: [
@@ -80,7 +86,8 @@ import { CakeDrawComponent } from './components/cake-draw/cake-draw.component';
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

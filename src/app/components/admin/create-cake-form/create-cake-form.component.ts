@@ -27,6 +27,7 @@ export class CreateCakeFormComponent implements OnInit {
   addOnBlur = true;
   chipFormControl: any;
   cakeProfileImagePathValidators: any;
+  isLoader = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   constructor(private toastService: ToastService,
     private dialogRef: MatDialogRef<CreateCakeFormComponent>,
@@ -122,6 +123,7 @@ export class CreateCakeFormComponent implements OnInit {
   }
 
   async addCake(cakeForm: any) {
+    this.isLoader = true;
     if (this.cakeSelected) {
       if (this.selectedFiles) {
         cakeForm.cakeProfileImagePath = await this.upload();
@@ -131,10 +133,12 @@ export class CreateCakeFormComponent implements OnInit {
       cakeForm.cakeID = this.cakeSelected.cakeID;
       this.cakeService.updateCake(cakeForm).subscribe(
         (response) => {
+          this.isLoader = false;
           this.toastService.openSnackBar('Chỉnh sửa thành công', 'Đóng', 'end', 'top', TOAST_NOTI);
           this.dialogRef.close();
         },
         (err) => {
+          this.isLoader = false;
           this.toastService.openSnackBar('Chỉnh sửa thất bại', 'Đóng', 'end', 'top', TOAST_ERROR);
         }
       );
@@ -142,10 +146,12 @@ export class CreateCakeFormComponent implements OnInit {
       cakeForm.cakeProfileImagePath = await this.upload();
       this.cakeService.addCake(cakeForm).subscribe(
         (response) => {
+          this.isLoader = false;
           this.toastService.openSnackBar('Thêm bánh thành công', 'Đóng', 'end', 'top', TOAST_NOTI);
           this.dialogRef.close();
         },
         (err) => {
+          this.isLoader = false;
           this.toastService.openSnackBar('Thêm bánh thất bại', 'Đóng', 'end', 'top', TOAST_ERROR);
         }
       );

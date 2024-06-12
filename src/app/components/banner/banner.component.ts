@@ -20,4 +20,11 @@ export class BannerComponent implements OnInit {
   scrollToCategory() {
     document.getElementById('category')?.scrollIntoView({ behavior: 'smooth' });
   }
+  scrollToPolicy() {
+    document.getElementById('policy')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  scrollToShop(){
+    document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' });
+
+  }
 }

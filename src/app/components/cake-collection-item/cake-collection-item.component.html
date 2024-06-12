@@ -19,7 +19,7 @@
                     <span class="cake-detail">Giá:
                         <span [class.line-through]="cake.cakeSalePrice !== '' && cake.cakeSalePrice !== null"
                             [class.font-bold]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
-                            [class.text-black]="cake.cakeSalePrice == null || cake.cakeSalePrice == ''"
+                            [class.text-black]="cake.cakeSalePrice == null || cake.cakeSalePrice == '' || !cake.cakeSalePrice"
                             class="sale">{{ cake.cakeOriginalPrice }}</span>
                         <span [class.font-bold]="cake.cakeSalePrice !== null" class="ml-2">{{ cake.cakeSalePrice
                             }}</span>

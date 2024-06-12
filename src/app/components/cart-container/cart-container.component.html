@@ -99,7 +99,7 @@
                         <h2 class="mb-2">Địa chỉ lấy hàng</h2>
                         <div class="form-section-divide flex justify-between">
                             <div class="item">
-                                <div class="normal-text">Chọn Quận</div>
+                                <div class="normal-text">Tên Quận</div>
                                 <input type="text" placeholder="Tên quận" formControlName="addressCity">
                                 <p class="error-msg"
                                     *ngIf="billingForm.get('addressCity').errors?.required && billingForm.get('addressCity').dirty">
@@ -107,7 +107,7 @@
 
                             </div>
                             <div class="item">
-                                <div class="normal-text">Chọn Phường</div>
+                                <div class="normal-text">Tên Phường</div>
                                 <input type="text" placeholder="Tên phường" formControlName="addressDistrict">
                                 <p class="error-msg"
                                     *ngIf="billingForm.get('addressDistrict').errors?.required && billingForm.get('addressDistrict').dirty">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="form-section">
-                            <div class="normal-text">Chọn Phường</div>
+                            <div class="normal-text">Số nhà, số đường</div>
                             <input type="text" placeholder="Số nhà, đường" formControlName="addressStreet">
                             <p class="error-msg"
                                 *ngIf="billingForm.get('addressStreet').errors?.required && billingForm.get('addressStreet').dirty">
@@ -251,7 +251,7 @@
                         <label for="cod">Thanh toán khi nhận hàng (COD)</label><br>
                     </div>
                     <div class="qr-code my-4">
-                        <img style="width: 200px;" src="../../../assets/images/qr_code_barcode.jpg" alt="">
+                        <!-- <img style="width: 200px;" src="../../../assets/images/qr_code_barcode.jpg" alt=""> -->
                     </div>
                    
                     <p class="mt-2">Savor khuyến khích quý khách chuyển khoản trước toàn bộ để được tự động xác nhận đơn

@@ -52,11 +52,9 @@
             bánh <span class="error">*</span></label>
         <select formControlName="cakeType"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="mousse">Bánh Mousse</option>
+            <option value="mousse" selected>Mousse</option>
             <option value="endcake">Bánh kem bế giảng</option>
-            <option value="cupcake">Bánh cốc</option>
-            <option value="whipping">Bánh kem whipping hoa quả</option>
-            <option value="endcake">Bánh kem hoa quả tươi</option>
+            <option value="flower">Bánh kem bông hoa</option>
         </select>
         <p class="error" *ngIf="cakeForm.get('cakeType').errors?.required && cakeForm.get('cakeType').dirty">Hãy nhập
             loại bánh</p>
@@ -98,3 +96,4 @@
 {{ cakeSelected ? 'Chỉnh sửa bánh' : 'Thêm bánh' }}
 </button>
 </form>
+<app-loader [isLoader]="isLoader"></app-loader>

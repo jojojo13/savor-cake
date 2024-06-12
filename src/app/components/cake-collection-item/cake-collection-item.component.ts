@@ -29,6 +29,7 @@ export class CakeCollectionItemComponent implements OnInit {
   ngOnInit(): void {
     this.cakeService.getCakeByType(this.cakeType).subscribe((response) =>{
       this.cakeList = response
+      console.log(this.cakeList)
     })
   }
   addToCart(cake: any) {

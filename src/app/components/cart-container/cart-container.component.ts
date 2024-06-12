@@ -6,6 +6,7 @@ import { TOAST_ERROR, TOAST_NOTI } from 'src/app/const';
 import { CakeService } from 'src/app/services/cake.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ToastService } from 'src/app/services/toast.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart-container',
@@ -101,7 +102,7 @@ export class CartContainerComponent implements OnInit {
     billingObject.totalAmount = this.totalBillQuantity;
     billingObject.totalPrice = this.totalBillPrice;
     billingObject.receiveDate = this.datePipe.transform(billingObject.receiveDate, 'dd/MM/yyyy')!;
-    console.log(billingObject)
+  
     this.cakeService.addBilling(billingObject).subscribe(response => {
       this.cartService.updateAccessoryInLocalStorage([]);
       this.cartService.updateCakeInLocalStorage([]);
@@ -109,6 +110,29 @@ export class CartContainerComponent implements OnInit {
       this.getAllCake();
       this.getAccessoryEmitter(null);
       this.billingReport();
+      if( billingObject.paymentType == 'Bank'){
+        let timerInterval: any;
+        Swal.fire({
+          title: 'Bạn đã đặt hàng thành công bằng phương thức chuyển khoản, bạn sẽ được chuyển hướng sang trang thanh toán sau 5 giây',
+          html: "Chuyển hướng trong <b></b> milliseconds.",
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const timer = Swal.getPopup()?.querySelector("b") as HTMLElement;
+            timerInterval = setInterval(() => {
+              timer.textContent = `${Swal.getTimerLeft()}`;
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+
+          width: '380px',
+        }).then((result) => {
+          document.location.href = "https://sandbox.vnpayment.vn/tryitnow/Home/CreateOrder"
+        })
+      }
     }, err => {
       this.toastSerivce.openSnackBar('Xảy ra lỗi khi đặt hàng, hãy thử lại', 'Đóng', 'end', 'top', TOAST_ERROR);
     }
