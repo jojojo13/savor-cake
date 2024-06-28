@@ -1,110 +1,104 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class="flex justify-end">
-        <span class="custom-dropdown billStatus">
-            <select [(ngModel)]="billStatus" (ngModelChange)="getBillByStatus()">
-                <option value="" selected>Tất cả</option>
-                <option value="processing" selected>Đang xử lý</option>
-                <option value="done">Đã hoàn thành</option>
-            </select>
-        </span>
-    </div>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" *ngIf="billingReport">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Người đặt bánh
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Người nhận bánh
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Chi tiết đơn hàng
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Địa chỉ
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Phương thức <br>thanh toán
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Ngày giao
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Giờ giao
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Ghi chú
-                </th>
-                <!-- <th scope="col" class="px-6 py-3">
-                    Thời gian đặt hàng
-                </th> -->
-                <th>
-                   Trạng thái
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let bill of billingReport" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <p>Tên: {{bill.bookerName}}</p>
-                    <p>Điện thoại: {{bill.bookerPhone}}</p>
-                    <p>Email: {{bill.bookerEmail}}</p>
-                </td>
-                <td class="px-6 py-4">
-                    <p>Tên: {{bill.receiverName}}</p>
-                    <p>Điện Thoại: {{bill.receiverPhone}}</p>
-                </td>
-                <td class="px-6 py-4">
-                 <div class="cake-item flex" *ngFor="let cake of bill.selectedCakes">
-                    <div class="imgBox">
-                        <img [src]="cake.cakeProfileImagePath" alt="">
-                    
-                    </div>
-                    <div class="detail">
-                        <p>{{cake.cakeName}}</p>
-                        <p>SL: {{cake.quantity}}</p>
-                        <p>Giá: {{cake.cakeTotalPrice}}</p>
-                    </div>
-               
-                 </div>
-                 <div class="cake-item flex" *ngFor="let acc of bill.selectedAccessories">
-                    <div class="imgBox">
-                        <img [src]="acc.imagePath" alt="">
-                    </div>
-                    <div class="detail">
-                        <p>{{acc.accessoryName}}</p>
-                        <p>SL: {{acc.quantity}}</p>
-                        <p>Giá: {{acc.totalPrice}}</p>
-                    </div>
-               
-                 </div>
-                </td>
-                <td class="px-6 py-4">
-                    <p>Đường: {{bill.addressStreet}}</p>
-                    <p>Phường: {{bill.addressDistrict}}</p>
-                    <p>Quận: {{bill.addressCity}}</p>
-                </td>
-                <td class="px-6 py-4">
-                    <p>{{bill.paymentType}}</p>
-                </td>
-                <td class="px-6 py-4">
-                    <p>{{bill.receiveDate}}</p>
-                </td>
-                <td class="px-6 py-4">
-                    <p>{{bill.receiveTime}}</p>
-                </td>
-                <td class="px-6 py-4">
-                    <p>{{bill.note}}</p>
-                </td>
-                <!-- <td class="px-6 py-4">
-                    <p>{{bill.createdDate}}</p>
-                </td> -->
-                <td>
-                    <button *ngIf="bill.status == 'processing'" (click)="completeBill(bill)">Hoàn thành đơn</button>
-                    <span *ngIf="bill.status == 'done'" style="color: green; font-weight: bold;">Đã hoàn thành</span>
-                </td>
-            </tr>
+<div class="card mb-4">
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    Danh sách đơn hàng
+  </div>
+  <div class="card-body">
+    <mat-form-field>
+      <mat-label>Tìm kiếm</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Điền thông tin bạn muốn tìm" #input>
+    </mat-form-field>
 
-        </tbody>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" (matSortChange)="sortData($event)">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="booker">
+        <th mat-header-cell *matHeaderCellDef>Người đặt bánh</th>
+        <td mat-cell *matCellDef="let element">Tên: {{element.bookerName}}<br> Số điện thoại:
+          {{element.bookerPhone}} <br>Email: {{element.bookerEmail}}
+        <td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="receiver">
+        <th mat-header-cell *matHeaderCellDef>Người nhận bánh</th>
+        <td mat-cell *matCellDef="let element">Tên: {{element.receiverName}} <br> Số điện thoại:
+          {{element.receiverPhone}}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="detail">
+        <th mat-header-cell *matHeaderCellDef>Chi tiết đơn hàng</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="cake-item flex" *ngFor="let cake of element.selectedCakes">
+
+            <div class="detail">
+              <p>{{cake.cakeName}}</p>
+              <p>SL: {{cake.quantity}}</p>
+              <p>Giá: {{cake.cakeTotalPrice}}</p>
+            </div>
+
+          </div>
+          <div class="cake-item flex" *ngFor="let acc of element.selectedAccessories">
+
+            <div class="detail">
+              <p>{{acc.accessoryName}}</p>
+              <p>SL: {{acc.quantity}}</p>
+              <p>Giá: {{acc.totalPrice}}</p>
+            </div>
+
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Địa chỉ</th>
+        <td mat-cell *matCellDef="let element"> {{element.addressCity}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="payment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sắp xếp">COD/BANK</th>
+        <td mat-cell *matCellDef="let element"> {{element.paymentType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sắp xếp">Ngày giao</th>
+        <td mat-cell *matCellDef="let element"> {{element.receiveDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hour">
+        <th mat-header-cell *matHeaderCellDef>Giờ giao</th>
+        <td mat-cell *matCellDef="let element"> {{element.receiveTime}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef>Ghi chú</th>
+        <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sắp xếp">Trạng thái</th>
+        <td mat-cell *matCellDef="let element"> <button *ngIf="element.status == 'processing'" class="mb-2"
+            (click)="completeBill(element)">Hoàn thành đơn</button>
+          <button *ngIf="element.status == 'processing'" (click)="rejectBill(element)"
+            style="background-color: red; display: block;">Hủy đơn cho khách</button>
+          <span *ngIf="element.status == 'done'" style="color: green; font-weight: bold;">Đã hoàn thành</span>
+          <span *ngIf="element.status == 'reject'" style="color: green; font-weight: bold; color: red;">Khách yêu cầu
+            hủy</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
     </table>
+
+
+
+  </div>
 </div>

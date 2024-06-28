@@ -38,7 +38,7 @@ export class CakeManagementPageAdminComponent implements OnInit {
 
   openDialog(): void {
     let dialog = this.dialog.open(CreateCakeFormComponent, {
-      height: '560px'
+      height: '500px'
     });
 
     dialog.afterClosed().subscribe(result => {
@@ -50,7 +50,7 @@ export class CakeManagementPageAdminComponent implements OnInit {
   updateCake(cake: any) {
     let dialog = this.dialog.open(CreateCakeFormComponent, {
       data: cake,
-      height: '800px'
+      height: '450px'
     });
     dialog.afterClosed().subscribe(result => {
       this.getCakesByType();

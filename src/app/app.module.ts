@@ -42,6 +42,11 @@ import { PolicyComponent } from './components/policy/policy.component';
 import { ShopSystemComponent } from './components/shop-system/shop-system.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoaderComponent } from './loader/loader.component';
+import { LoginAdminComponent } from './components/admin/login-admin/login-admin.component';
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { WrapperBillReportComponent } from './components/admin/wrapper-bill-report/wrapper-bill-report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +69,10 @@ import { LoaderComponent } from './loader/loader.component';
     CakeDrawComponent,
     PolicyComponent,
     ShopSystemComponent,
-    LoaderComponent
+    LoaderComponent,
+    LoginAdminComponent,
+    AdminPageComponent,
+    WrapperBillReportComponent
     
   ],
   imports: [
@@ -87,6 +95,8 @@ import { LoaderComponent } from './loader/loader.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatTableModule,
+    MatSortModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [],
