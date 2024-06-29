@@ -5,7 +5,6 @@ import { WelcomePageComponent } from './components/welcome-page/welcome-page.com
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 
 import { CakeManagementPageAdminComponent } from './components/cake-management-page-admin/cake-management-page-admin.component';
-import { BillReportComponent } from './components/bill-report/bill-report.component';
 import { LoginAdminComponent } from './components/admin/login-admin/login-admin.component';
 import { AthenticateGuard } from './services/athenticate.guard';
 import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';

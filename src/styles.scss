@@ -5,6 +5,9 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @charset "UTF-8";
 
+.cdk-column-status.mat-column-status{
+  width: 140px !important;
+}
 .cdk-column-detail.mat-column-detail{
   width: 200px !important;
 }

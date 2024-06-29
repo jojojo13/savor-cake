@@ -47,6 +47,7 @@ import { AdminPageComponent } from './components/admin/admin-page/admin-page.com
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { WrapperBillReportComponent } from './components/admin/wrapper-bill-report/wrapper-bill-report.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +98,7 @@ import { WrapperBillReportComponent } from './components/admin/wrapper-bill-repo
     MatInputModule,
     MatTableModule,
     MatSortModule,
+    MatSelectModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [],

@@ -1,65 +1,81 @@
 <div class="container-fluid px-4">
-  <h1 class="mt-4">Thống kê</h1>
+  <h1 class="mt-4 font-bold text-lg">Thống kê</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Thống kê chi tiết đơn hàng và doanh thu</li>
   </ol>
-  <div class="row">
+  <div class="row" *ngIf="totalDashboard">
+    <h1 class="mb-2 text-success font-bold">Tổng doanh thu: {{totalDashboard.totalMoney}} VNĐ</h1>
     <div class="col-xl-3 col-md-6">
-      <div class="card bg-primary text-white mb-4">
-        <div class="card-body">Primary Card</div>
+      <div class="card bg-warning text-white mb-4">
+        <div class="card-body">Tổng số đơn được đặt</div>
         <div class="card-footer d-flex align-items-center justify-content-between">
-          <a class="small text-white stretched-link" href="#">View Details</a>
-          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+          <a class="small text-white stretched-link">{{totalDashboard.totalBillQuantity}} đơn</a>
+          
         </div>
       </div>
     </div>
     <div class="col-xl-3 col-md-6">
-      <div class="card bg-warning text-white mb-4">
-        <div class="card-body">Warning Card</div>
+      <div class="card bg-primary text-white mb-4">
+        <div class="card-body">Tổng số đơn đang chờ xử lý</div>
         <div class="card-footer d-flex align-items-center justify-content-between">
-          <a class="small text-white stretched-link" href="#">View Details</a>
-          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+          <a class="small text-white stretched-link">{{totalDashboard.totalBillProcessingQuantity}} đơn</a>
         </div>
       </div>
     </div>
     <div class="col-xl-3 col-md-6">
       <div class="card bg-success text-white mb-4">
-        <div class="card-body">Success Card</div>
+        <div class="card-body">Tổng số đơn đã hoàn thành</div>
         <div class="card-footer d-flex align-items-center justify-content-between">
-          <a class="small text-white stretched-link" href="#">View Details</a>
-          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+          <a class="small text-white stretched-link">{{totalDashboard.totalBillDoneQuantity}} đơn</a>
+  
         </div>
       </div>
     </div>
     <div class="col-xl-3 col-md-6">
       <div class="card bg-danger text-white mb-4">
-        <div class="card-body">Danger Card</div>
+        <div class="card-body">Tổng số đơn khách hủy</div>
         <div class="card-footer d-flex align-items-center justify-content-between">
-          <a class="small text-white stretched-link" href="#">View Details</a>
-          <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+          <a class="small text-white stretched-link">{{totalDashboard.totalBillRejectQuantity}} đơn</a>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-xl-6">
+      <mat-form-field>
+        <mat-label>Dữ liệu thống kê trong</mat-label>
+        <mat-select disableRipple [(ngModel)]="filterBy" (selectionChange)="handleOnChange()">
+          <mat-option value="1">7 ngày trước</mat-option>
+          <mat-option value="2">15 ngày trước</mat-option>
+          <mat-option value="3">30 ngày trước</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+   
+    <div class="col-xl-6">
       <div class="card mb-4">
         <div class="card-header">
           <i class="fas fa-chart-area me-1"></i>
-          Area Chart Example
+          <span *ngIf="filterBy =='1'"> Doanh thu 7 ngày trước với biểu đồ đường</span>
+          <span *ngIf="filterBy =='2'"> Doanh thu 15 ngày trước với biểu đồ đường</span>
+          <span *ngIf="filterBy =='3'"> Doanh thu 30 ngày trước với biểu đồ đường</span>
         </div>
-        <div class="card-body">  <canvas  id="MyChart" >{{ chart }}</canvas></div>
+        <div class="card-body">  <canvas id="myLineChart" ></canvas></div>
       </div>
     </div>
     <div class="col-xl-6">
       <div class="card mb-4">
         <div class="card-header">
           <i class="fas fa-chart-bar me-1"></i>
-          Bar Chart Example
+          <span *ngIf="filterBy =='1'"> Doanh thu 7 ngày trước với biểu đồ cột</span>
+          <span *ngIf="filterBy =='2'"> Doanh thu 15 ngày trước với biểu đồ cột</span>
+          <span *ngIf="filterBy =='3'"> Doanh thu 30 ngày trước với biểu đồ cột</span>
         </div>
-        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+        <div class="card-body"><canvas id="myBarChart" width="100%" height="90"></canvas></div>
       </div>
     </div>
   </div>
-  <app-bill-report></app-bill-report>
+  <app-bill-report (dashBoardChange)="detectDashboardChange($event)"></app-bill-report>
 </div>

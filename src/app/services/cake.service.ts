@@ -36,4 +36,11 @@ export class CakeService {
   updateBill(billUpdateRequest:any){
     return this.http.put(`http://localhost:8080/billing/v1`,billUpdateRequest);
   }
+
+  getTotalDashboard(){
+    return this.http.get(`http://localhost:8080/dashboard/v1`);
+  }
+  getChartDashboard(by:any){
+    return this.http.get(`http://localhost:8080/dashboard/v1/static?by=${by}`);
+  }
 }

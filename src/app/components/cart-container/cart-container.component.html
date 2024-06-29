@@ -72,27 +72,27 @@
                 <form [formGroup]="billingForm">
                     <div class="form-section">
                         <h2 class="mb-2">Thông tin người đặt</h2>
-                        <input type="text" placeholder="Họ tên" formControlName="bookerName">
-                        <p class="error-msg"
-                            *ngIf="billingForm.get('bookerName').errors?.required && billingForm.get('bookerName').dirty">
-                            Hãy nhập trường này</p>
-                        <input type="text" placeholder="Số điện thoại" formControlName="bookerPhone">
-                        <p class="error-msg"
-                            *ngIf="billingForm.get('bookerPhone').errors?.required && billingForm.get('bookerPhone').dirty">
-                            Hãy nhập trường này</p>
+                        <input type="text" placeholder="Họ tên" formControlName="bookerName" class="mb-1">
+                        <p class="error-msg mb-2"
+                            *ngIf="billingForm.get('bookerName').errors?.required">
+                            Cần nhập họ tên</p>
+                        <input type="text" placeholder="Số điện thoại" formControlName="bookerPhone" class="mb-1">
+                        <p class="error-msg mb-2"
+                            *ngIf="billingForm.get('bookerPhone').errors?.required">
+                            Cần nhập số điện thoại</p>
                         <input type="text" placeholder="Email" formControlName="bookerEmail">
                     </div>
                     <div class="form-section">
                         <h2 class="mb-2">Thông tin người nhận</h2>
-                        <input type="text" placeholder="Họ tên" formControlName="receiverName">
-                        <p class="error-msg"
-                            *ngIf="billingForm.get('receiverName').errors?.required && billingForm.get('receiverName').dirty">
-                            Hãy nhập trường này</p>
+                        <input type="text" placeholder="Họ tên" formControlName="receiverName" class="mb-1">
+                        <p class="error-msg mb-2"
+                            *ngIf="billingForm.get('receiverName').errors?.required">
+                            Cần nhập tên người nhận</p>
 
-                        <input type="text" placeholder="Số điện thoại" formControlName="receiverPhone">
-                        <p class="error-msg"
-                            *ngIf="billingForm.get('receiverPhone').errors?.required && billingForm.get('receiverPhone').dirty">
-                            Hãy nhập trường này</p>
+                        <input type="text" placeholder="Số điện thoại" formControlName="receiverPhone" class="mb-1">
+                        <p class="error-msg mb-2"
+                            *ngIf="billingForm.get('receiverPhone').errors?.required">
+                            Cần nhập số điện thoại người nhận</p>
 
                     </div>
                     <div class="form-section">
@@ -100,27 +100,27 @@
                         <div class="form-section-divide flex justify-between">
                             <div class="item">
                                 <div class="normal-text">Tên Quận</div>
-                                <input type="text" placeholder="Tên quận" formControlName="addressCity">
+                                <input type="text" placeholder="Tên quận" formControlName="addressCity" class="mb-0">
                                 <p class="error-msg"
-                                    *ngIf="billingForm.get('addressCity').errors?.required && billingForm.get('addressCity').dirty">
-                                    Hãy nhập trường này</p>
+                                    *ngIf="billingForm.get('addressCity').errors?.required">
+                                    Cần nhập tên quận</p>
 
                             </div>
                             <div class="item">
                                 <div class="normal-text">Tên Phường</div>
-                                <input type="text" placeholder="Tên phường" formControlName="addressDistrict">
-                                <p class="error-msg"
-                                    *ngIf="billingForm.get('addressDistrict').errors?.required && billingForm.get('addressDistrict').dirty">
-                                    Hãy nhập trường này</p>
+                                <input type="text" placeholder="Tên phường" formControlName="addressDistrict" class="mb-0">
+                                <p class="error-msg mt-0"
+                                    *ngIf="billingForm.get('addressDistrict').errors?.required">
+                                    Cần nhập tên phường</p>
 
                             </div>
                         </div>
                         <div class="form-section">
                             <div class="normal-text">Số nhà, số đường</div>
-                            <input type="text" placeholder="Số nhà, đường" formControlName="addressStreet">
-                            <p class="error-msg"
-                                *ngIf="billingForm.get('addressStreet').errors?.required && billingForm.get('addressStreet').dirty">
-                                Hãy nhập trường này</p>
+                            <input type="text" placeholder="Số nhà, đường" formControlName="addressStreet" class="mb-0">
+                            <p class="error-msg mt-0"
+                                *ngIf="billingForm.get('addressStreet').errors?.required">
+                                Cần nhập số nhà, số đường</p>
 
                         </div>
                     </div>
@@ -147,8 +147,8 @@
                             <mat-datepicker #picker></mat-datepicker>
                           </mat-form-field>
                         <p class="error-msg"
-                        *ngIf="billingForm.get('receiveDate').errors?.required && billingForm.get('receiveDate').dirty">
-                        Hãy nhập trường này</p>
+                        *ngIf="billingForm.get('receiveDate').errors?.required">
+                        Cần chọn ngày giao</p>
 
                         <p class="normal-text mt-4">Giờ</p>
                         <select name="" id="" class="" formControlName="receiveTime">
@@ -178,7 +178,7 @@
                             <option value="20h-21h">20h-21h</option>
                         </select>
                         <p class="error-msg"
-                        *ngIf="billingForm.get('receiveTime').errors?.required && billingForm.get('receiveTime').dirty">
+                        *ngIf="billingForm.get('receiveTime').errors?.required">
                         Hãy nhập trường này</p>
 
                         <p class="normal-text">Savor cần ít nhất <b>20 phút</b> để chuẩn bị đơn hàng của bạn và sẽ giao
@@ -256,7 +256,7 @@
                    
                     <p class="mt-2">Savor khuyến khích quý khách chuyển khoản trước toàn bộ để được tự động xác nhận đơn
                         hàng nhanh hơn ạ.</p>
-                    <button class="book" [disabled]="!billingForm.valid || !billingForm.dirty" (click)="bookingNow()">Đặt hàng</button>
+                    <button class="book" [disabled]="!billingForm.valid || !billingForm.dirty || (cakesTable.length==0 && accessoriesTable.length==0)" (click)="bookingNow()">Đặt hàng</button>
                 </div>
                 <!-- [disabled]="!billingForm.valid || !billingForm.dirty" -->
             </div>

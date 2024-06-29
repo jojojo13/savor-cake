@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CakeService } from 'src/app/services/cake.service';
@@ -9,11 +9,12 @@ import { CakeService } from 'src/app/services/cake.service';
   styleUrls: ['./bill-report.component.scss']
 })
 export class BillReportComponent implements OnInit {
+  @Output() dashBoardChange = new EventEmitter<string>();
   sortedData: any;
   billStatus = "";
   billingReport: any;
-
-  displayedColumns: string[] = ['booker', 'receiver', 'detail', 'address', 'payment', 'date', 'hour', 'note', 'status'];
+  
+  displayedColumns: string[] = ['booker', 'receiver', 'detail', 'address', 'payment', 'date', 'hour', 'note', 'status','action'];
   dataSource: any = new MatTableDataSource();
 
   applyFilter(event: Event) {
@@ -33,7 +34,6 @@ export class BillReportComponent implements OnInit {
   getBillByStatus() {
     this.cakeService.getAllBilling(this.billStatus).subscribe(bill => {
       this.billingReport = bill;
-      console.log(this.billingReport)
       this.dataSource = new MatTableDataSource(this.billingReport);
     });
   }
@@ -44,6 +44,7 @@ export class BillReportComponent implements OnInit {
     }
     this.cakeService.updateBill(obj).subscribe(bill => {
       this.getBillByStatus()
+      this.dashBoardChange.emit('change');
     });
   }
   rejectBill(bill: any) {
@@ -52,7 +53,8 @@ export class BillReportComponent implements OnInit {
       status: 'reject'
     }
     this.cakeService.updateBill(obj).subscribe(bill => {
-      this.getBillByStatus()
+      this.getBillByStatus();
+      this.dashBoardChange.emit('change');
     });
   }
   compare(a: number | string, b: number | string, isAsc: boolean) {

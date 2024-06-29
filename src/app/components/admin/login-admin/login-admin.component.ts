@@ -22,7 +22,9 @@ export class LoginAdminComponent implements OnInit {
   login(formValue:any){
     this.authenticationService.login(formValue).subscribe((res:any)=>{
       localStorage.setItem('token',res.token);
-      this.router.navigateByUrl("admin/cakes")
+      localStorage.setItem('username',res.username);
+      this.authenticationService.loginTrack.next(true);
+      this.router.navigateByUrl("admin/dashboard")
     },(err) =>{
       this.loginMsg = "Tài khoản hoặc mật khẩu không chính xác, xin vui lòng thử lại!";
     })

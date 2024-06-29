@@ -79,14 +79,19 @@
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sắp xếp">Trạng thái</th>
-        <td mat-cell *matCellDef="let element"> <button *ngIf="element.status == 'processing'" class="mb-2"
-            (click)="completeBill(element)">Hoàn thành đơn</button>
-          <button *ngIf="element.status == 'processing'" (click)="rejectBill(element)"
-            style="background-color: red; display: block;">Hủy đơn cho khách</button>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.status == 'processing'" style="color: blue; font-weight: bold;">Đang xử lý</span>
           <span *ngIf="element.status == 'done'" style="color: green; font-weight: bold;">Đã hoàn thành</span>
           <span *ngIf="element.status == 'reject'" style="color: green; font-weight: bold; color: red;">Khách yêu cầu
             hủy</span>
         </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Hành động</th>
+        <td mat-cell *matCellDef="let element"><button *ngIf="element.status == 'processing'" class="mb-2"
+          (click)="completeBill(element)">Hoàn thành đơn</button>
+        <button *ngIf="element.status == 'processing'" (click)="rejectBill(element)"
+          style="background-color: red; display: block;">Hủy đơn cho khách</button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
